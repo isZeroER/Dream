@@ -1,0 +1,68 @@
+using System;
+using System.Collections;
+using UnityEngine;
+
+public class TurnManager : Singleton<TurnManager>
+{
+    private bool isPlayerTurn = true;
+    private bool turning;
+    [SerializeField] private Player player;
+
+    private void Update()
+    {
+        if (!turning)
+        {
+            if (isPlayerTurn)
+            {
+                turning = true;
+                StartCoroutine(PlayerInput());
+            }
+            else
+            {
+                turning = true;
+                EnemyTurn();
+            }
+        }
+    }
+
+    private IEnumerator PlayerInput()
+    {
+        while (!player.hasInput)
+        {
+            Debug.Log("玩家回合，等待玩家输入...");
+            player.HandleMethod();
+            yield return null;
+        }
+
+        //提示map里面都清空然后更新状态
+        GridManager.Instance.ClearTip();
+        GridManager.Instance.ChangeGridInfo(player.transform.position, true);
+
+        EndTurn();
+    }
+
+    private void EnemyTurn()
+    {
+        // 敌人回合逻辑，假设敌人回合是自动进行的
+        Debug.Log("敌人回合，自动执行...");
+
+        // 模拟敌人行动
+        StartCoroutine(EnemyAction());
+    }
+
+    private IEnumerator EnemyAction()
+    {
+        yield return new WaitForSeconds(2);  // 假设敌人需要2秒进行回合操作
+
+        Debug.Log("敌人回合结束");
+        player.hasInput = false;
+        EndTurn();
+    }
+
+    public void EndTurn()
+    {
+        // 切换回合
+        isPlayerTurn = !isPlayerTurn;
+        turning = false;
+    }
+}
