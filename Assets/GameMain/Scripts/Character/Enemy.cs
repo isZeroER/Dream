@@ -15,11 +15,13 @@ public class Enemy : Character
 
     private void Start()
     {
-        GridManager.Instance.ChangeGridInfo(transform.position, true);
+        characterType = CharacterType.Enemy;
+        currentGrid = GridManager.Instance.GetGridByPos(transform.position);
+        GridManager.Instance.ChangeGridInfo(transform.position, characterType);
     }
 
     private void CheckPlayer()
     {
-           
+        
     }
 }

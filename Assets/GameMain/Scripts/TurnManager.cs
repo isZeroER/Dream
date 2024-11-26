@@ -33,10 +33,12 @@ public class TurnManager : Singleton<TurnManager>
             player.HandleMethod();
             yield return null;
         }
+        //刷新玩家状态
+        player.ClearStat();
 
         //提示map里面都清空然后更新状态
         GridManager.Instance.ClearTip();
-        GridManager.Instance.ChangeGridInfo(player.transform.position, true);
+        GridManager.Instance.ChangeGridInfo(player.transform.position, Character.CharacterType.Player);
 
         EndTurn();
     }
