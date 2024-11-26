@@ -5,6 +5,7 @@ using UnityEngine;
 public class TurnManager : Singleton<TurnManager>
 {
     private bool isPlayerTurn = true;
+    //是否在回合中
     private bool turning;
     [SerializeField] private Player player;
 
@@ -54,9 +55,8 @@ public class TurnManager : Singleton<TurnManager>
 
     private IEnumerator EnemyAction()
     {
-        yield return new WaitForSeconds(2);  // 假设敌人需要2秒进行回合操作
-
-        Debug.Log("敌人回合结束");
+        EnemyManager.Instance.HandleTurn();
+        yield return new WaitForSeconds(2);
         player.hasInput = false;
         EndTurn();
     }

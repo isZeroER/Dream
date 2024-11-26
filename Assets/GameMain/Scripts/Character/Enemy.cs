@@ -22,6 +22,12 @@ public class Enemy : Character
 
     private void CheckPlayer()
     {
-        
+        // DoDamage();
+    }
+
+    protected override void Die()
+    {
+        EnemyManager.Instance.RemoveEnemy(this);
+        base.Die();
     }
 }

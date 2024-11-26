@@ -52,11 +52,7 @@ public class AttackDecision : DecisionBase
     {
         if (!Input.GetMouseButtonDown(0)) 
             return new RaycastHit2D();
-        // Vector3 mouseScreenPos = Input.mousePosition;
-        // mouseScreenPos.z = Camera.main.transform.position.z * -1;
-        // // 获取鼠标世界坐标
-        // Vector2 mousePos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
-        
+
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         // 发射一条射线，检测鼠标点击位置是否有敌人

@@ -22,15 +22,6 @@ public class GridManager : Singleton<GridManager>
         GetTileMap();
     }
 
-    // private void OnValidate()
-    // {
-    //     Debug.Log(GetType().Name + ".OnValidate");
-    //     BoundsInt bounds = tileMap.cellBounds;
-    //     Debug.Log(bounds);
-    //     Debug.Log(bounds.size);
-    //     Debug.Log(bounds.xMin);
-    // }
-
     /// <summary>
     /// 初始化格子
     /// </summary>
