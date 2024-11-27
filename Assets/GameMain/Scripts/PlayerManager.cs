@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerManager : Singleton<PlayerManager>
 {
-    [SerializeField] private Player player;
+    public Player player;
 
 
     public int GetDistance(Vector2 pos)

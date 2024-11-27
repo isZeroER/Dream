@@ -7,6 +7,7 @@ public class Player : Character
 {
     public bool hasInput = false;
     private List<IDecision> decisions = new List<IDecision>();
+    public static event Action UpdatePlayerPos;
     private void Start()
     {
         //初始化生命和攻击力，确定种类
@@ -67,5 +68,7 @@ public class Player : Character
         //这里
         currentGrid = GridManager.Instance.GetGridByPos(transform.position);
         GridManager.Instance.ChangeGridInfo(currentGrid, characterType);
+        
+        UpdatePlayerPos?.Invoke();
     }
 }

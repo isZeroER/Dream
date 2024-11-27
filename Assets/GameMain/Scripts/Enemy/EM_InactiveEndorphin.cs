@@ -8,5 +8,6 @@ public class EM_InactiveEndorphin : EnemyBase
     {
         base.Start();
         enemyType = EnemyType.InactiveEndorphin;
+        SetHealth_Strenth(3, 2);
     }
 }
