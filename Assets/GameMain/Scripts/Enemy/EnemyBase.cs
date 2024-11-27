@@ -5,6 +5,7 @@ using UnityEngine;
 
 public abstract class EnemyBase : Character
 {
+    protected Player player;
     public enum EnemyType
     {
         InactiveEndorphin,
@@ -32,6 +33,8 @@ public abstract class EnemyBase : Character
         //获取当前瓦片
         currentGrid = GridManager.Instance.GetGridByPos(transform.position);
         GridManager.Instance.ChangeGridInfo(transform.position, characterType);
+
+        player = PlayerManager.Instance.player;
     }
     protected void SetHealth_Strenth(int targetHealth, int targetStrength)
     {
@@ -58,11 +61,27 @@ public abstract class EnemyBase : Character
     {
         base.HandleMethod();
         CheckPlayer();
+        if (findPlayer)
+        {
+            if (CanAttack())
+            {
+                Attack();
+            }
+            else
+            {
+                HatingPatrol();
+            }
+            
+        }
+        else
+        {
+            Patrol();
+        }
         
     }
     protected virtual void CheckPlayer()
     {
-        Vector2 playerPos = PlayerManager.Instance.player.transform.position;
+        Vector2 playerPos = player.transform.position;
         Vector2 enemyPos = transform.position;
         if(Math.Abs(playerPos.x-enemyPos.x)+Math.Abs(playerPos.y-enemyPos.y) < 2)
         {
@@ -83,6 +102,11 @@ public abstract class EnemyBase : Character
     }
 
     protected virtual void Patrol()
+    {
+        
+    }
+
+    protected virtual void HatingPatrol()
     {
         
     }

@@ -22,9 +22,9 @@ public class EnemyManager : Singleton<EnemyManager>
         _closestEnemyBase = FindCloseEnemy();
         if (_closestEnemyBase == null)
         {
-            //TODO:结束UI
-            Debug.Log("游戏结束！！！");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            //TODO:结算
+            // Debug.Log("游戏结束！！！");
+            // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             return;
         }
         _closestEnemyBase.HandleMethod();

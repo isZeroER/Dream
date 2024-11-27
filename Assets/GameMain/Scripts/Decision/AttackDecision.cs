@@ -28,35 +28,37 @@ public class AttackDecision : DecisionBase
 
     private void ChooseTarget()
     {
-        RaycastHit2D hit = CastRayToSelectTarget();
-
-        // 一旦选择了目标，就执行攻击
-        if (hit.collider != null && hit.collider.CompareTag("Enemy"))
+        RaycastHit2D[] hits = CastRayToSelectTarget();
+        if (hits == null)
         {
-            toAttack = hit.collider.GetComponent<Character>();
-            waitingForChoose = false;
-            Debug.Log("获取到了目标" + toAttack.name);
-            player.DoDamage(player.strength, toAttack);
-            toAttack = null;
-            player.hasInput = true;
-        }
-        else
-        {
-            // 如果没有选择目标，则继续等待
             Debug.Log("没有选择目标，继续等待...");
+            return;
+        }
+        foreach (var hit in hits)
+        {
+            if (hit.collider.CompareTag("Enemy"))
+            {
+                toAttack = hit.collider.GetComponent<Character>();
+                waitingForChoose = false;
+                Debug.Log("获取到了目标" + toAttack.name);
+                player.DoDamage(player.strength, toAttack);
+                toAttack = null;
+                player.hasInput = true;
+                return;
+            }
         }
     }
     
     // 发射射线来选择目标
-    private RaycastHit2D CastRayToSelectTarget()
+    private RaycastHit2D[] CastRayToSelectTarget()
     {
         if (!Input.GetMouseButtonDown(0)) 
-            return new RaycastHit2D();
+            return null;
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         // 发射一条射线，检测鼠标点击位置是否有敌人
-        return Physics2D.Raycast(ray.origin, ray.direction);
+        return Physics2D.RaycastAll(ray.origin, ray.direction);
     }
 
     /// <summary>

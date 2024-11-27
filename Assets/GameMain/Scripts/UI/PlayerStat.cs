@@ -2,21 +2,22 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class PlayerStat : MonoBehaviour
+public class PlayerStat : BasePanel
 {
-    [SerializeField] private GameObject heart;
+    [SerializeField] private Transform hearts;
     [SerializeField] private Player player;
 
     private void Update()
     {
-        for (int i = 0; i < transform.childCount; i++)
+        for (int i = 0; i < hearts.childCount; i++)
         {
-            transform.GetChild(i).gameObject.SetActive(false);
+            hearts.transform.GetChild(i).gameObject.SetActive(false);
         }
         for (int i = 0; i < player.health; i++)
         {
-            transform.GetChild(i).gameObject.SetActive(true);
+            hearts.transform.GetChild(i).gameObject.SetActive(true);
         }
     }
 }

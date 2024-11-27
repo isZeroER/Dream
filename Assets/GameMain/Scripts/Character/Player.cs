@@ -8,6 +8,8 @@ public class Player : Character
     public bool hasInput = false;
     private List<IDecision> decisions = new List<IDecision>();
     public static event Action UpdatePlayerPos;
+    [Space] 
+    [SerializeField] private GameObject tryTest;
     private void Start()
     {
         //初始化生命和攻击力，确定种类
@@ -35,6 +37,11 @@ public class Player : Character
     /// </summary>
     public void CheckInput()
     {
+        if ((Vector2)transform.position == new Vector2(-3, -2))
+        {
+            tryTest.SetActive(true);
+            return;
+        }
         if (hasInput) return;
         foreach (var decision in decisions)
         {
