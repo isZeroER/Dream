@@ -31,7 +31,7 @@ public class AttackDecision : DecisionBase
         RaycastHit2D hit = CastRayToSelectTarget();
 
         // 一旦选择了目标，就执行攻击
-        if (hit.collider != null && hit.collider.tag == "Enemy")
+        if (hit.collider != null && hit.collider.CompareTag("Enemy"))
         {
             toAttack = hit.collider.GetComponent<Character>();
             waitingForChoose = false;
@@ -69,6 +69,8 @@ public class AttackDecision : DecisionBase
         int enemyNum = 0;
         foreach (GridInfo grid in grids)
         {
+            if(grid == null) 
+                continue;
             if (grid.characterType == Character.CharacterType.Enemy)
             {
                 enemyNum++;

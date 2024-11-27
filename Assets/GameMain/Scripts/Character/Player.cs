@@ -15,10 +15,10 @@ public class Player : Character
         characterType = CharacterType.Player;
         currentGrid = GridManager.Instance.GetGridByPos(transform.position);
         
-        decisions.Add(new MoveDecision(this, Vector3Int.up));
-        decisions.Add(new MoveDecision(this, Vector3Int.down));
-        decisions.Add(new MoveDecision(this, Vector3Int.left));
-        decisions.Add(new MoveDecision(this, Vector3Int.right));
+        decisions.Add(new MoveDecision(this, Vector2.up));
+        decisions.Add(new MoveDecision(this, Vector2.down));
+        decisions.Add(new MoveDecision(this, Vector2.left));
+        decisions.Add(new MoveDecision(this, Vector2.right));
         decisions.Add(new AttackDecision(this));
         decisions.Add(new DodgeDecision(this));
     }
@@ -64,6 +64,7 @@ public class Player : Character
     private void UpdateGridInfo()
     {
         GridManager.Instance.ChangeGridInfo(currentGrid, CharacterType.None);
+        //这里
         currentGrid = GridManager.Instance.GetGridByPos(transform.position);
         GridManager.Instance.ChangeGridInfo(currentGrid, characterType);
     }

@@ -29,6 +29,11 @@ public class GridInfo
         characterType = Character.CharacterType.None;
     }
 
+    public void SetColor(Color color)
+    {
+        tile.color = color;
+    }
+    
     public void SetSprite(Sprite sprite)
     {
         currentSprite = sprite;

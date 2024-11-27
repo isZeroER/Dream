@@ -62,7 +62,8 @@ public class GridManager : Singleton<GridManager>
 
     public GridInfo GetGridByPos(Vector2 pos)
     {
-        Vector3Int gridPos = tileMap.WorldToCell(pos);
+        Vector2 realPos = new Vector2((int)Math.Round(pos.x), (int)Math.Round(pos.y));
+        Vector3Int gridPos = tileMap.WorldToCell(realPos);
         int index = GetTileIndex(gridPos.x, gridPos.y, mapBounds);
         
         return GetGridByInt(index);
@@ -142,6 +143,8 @@ public class GridManager : Singleton<GridManager>
         }
         else
         {
+            if (targetGrid == null)
+                return false;
             if(targetGrid.characterType == Character.CharacterType.Enemy)
                 forTip.SetTile(target, enemyHighlightTile);
             return false;

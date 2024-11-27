@@ -5,12 +5,8 @@ using UnityEngine;
 
 public class PlayerManager : Singleton<PlayerManager>
 {
-    private Player player;
+    [SerializeField] private Player player;
 
-    private void Start()
-    {
-        player = GameObject.FindWithTag("Player").GetComponent<Player>();
-    }
 
     public int GetDistance(Vector2 pos)
     {
