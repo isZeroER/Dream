@@ -8,6 +8,8 @@ public class EnemyManager : Singleton<EnemyManager>
 {
     private List<EnemyBase> enemies = new List<EnemyBase>();
     private EnemyBase _closestEnemyBase;
+
+    private List<EnemyBase> patrolEnemies = new List<EnemyBase>();
     private void Start()
     {
         GameObject[] enemyGameObjects = GameObject.FindGameObjectsWithTag("Enemy");
@@ -27,10 +29,17 @@ public class EnemyManager : Singleton<EnemyManager>
             // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             return;
         }
+        
+        //只有最近的怪物可以触发回合
         _closestEnemyBase.HandleMethod();
 
     }
 
+    /// <summary>
+    /// 这里获取最近的敌人
+    /// TODO：后面可以获取所有含自由行动的敌人，在每个回合调用
+    /// </summary>
+    /// <returns></returns>
     private EnemyBase FindCloseEnemy()
     {
         int closeDistance = Int32.MaxValue;

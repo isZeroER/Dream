@@ -6,19 +6,49 @@ using UnityEngine.Tilemaps;
 
 public class GridManager : Singleton<GridManager>
 {
-    private Dictionary<int, GridInfo> tileDict = new Dictionary<int, GridInfo>();
-    // private Dictionary<int, GridInfo> tipDict = new Dictionary<int, GridInfo>();
-    
-    [SerializeField] private Tilemap tileMap;
+    [SerializeField] private Tilemap[] wholeTilemaps;
     [SerializeField] private Tilemap forTip;
     [SerializeField] private TileBase highlightTile;
     [SerializeField] private TileBase enemyHighlightTile;
     
+    private Tilemap currentMap;
+    private int currentTileMapId = 0;
     private BoundsInt mapBounds;
-    
+    private Dictionary<int, GridInfo> tileDict = new Dictionary<int, GridInfo>();
+
     protected override void Awake()
     {
         base.Awake();
+        currentMap = wholeTilemaps[currentTileMapId];
+        currentMap.gameObject.SetActive(true);
+        GetTileMap();
+
+    }
+
+    private void OnEnable()
+    {
+        EventManager.NextTileMap += NextTileMap;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.NextTileMap -= NextTileMap;
+    }
+
+    private void NextTileMap()
+    {
+        currentMap.gameObject.SetActive(false);
+        tileDict.Clear();
+        //下一关卡
+        currentTileMapId++;
+        //如果等于，说明没有下一关，本关结束
+        if (currentTileMapId == wholeTilemaps.Length)
+        {
+            Debug.Log("本章完结！");
+            return;
+        }
+        currentMap = wholeTilemaps[currentTileMapId];
+        currentMap.gameObject.SetActive(true);
         GetTileMap();
     }
 
@@ -27,10 +57,10 @@ public class GridManager : Singleton<GridManager>
     /// </summary>
     private void GetTileMap()
     {
-        mapBounds = tileMap.cellBounds;
+        mapBounds = currentMap.cellBounds;
 
         //获取包围盒的数组
-        TileBase[] allTiles = tileMap.GetTilesBlock(mapBounds);
+        TileBase[] allTiles = currentMap.GetTilesBlock(mapBounds);
 
         for (int x = mapBounds.xMin; x < mapBounds.size.x + mapBounds.xMin; x++)
         {
@@ -63,7 +93,7 @@ public class GridManager : Singleton<GridManager>
     public GridInfo GetGridByPos(Vector2 pos)
     {
         Vector2 realPos = new Vector2((int)Math.Round(pos.x), (int)Math.Round(pos.y));
-        Vector3Int gridPos = tileMap.WorldToCell(realPos);
+        Vector3Int gridPos = currentMap.WorldToCell(realPos);
         int index = GetTileIndex(gridPos.x, gridPos.y, mapBounds);
         
         return GetGridByInt(index);

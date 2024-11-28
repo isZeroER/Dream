@@ -8,10 +8,12 @@ public class Player : Character
     public bool hasInput = false;
     private List<IDecision> decisions = new List<IDecision>();
     public static event Action UpdatePlayerPos;
+    public int currentScore { get; private set; }
     [Space] 
     [SerializeField] private GameObject tryTest;
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         //初始化生命和攻击力，确定种类
         health = 3;
         strength = 2;
@@ -25,23 +27,47 @@ public class Player : Character
         decisions.Add(new AttackDecision(this));
         decisions.Add(new DodgeDecision(this));
     }
-    
+
+
+    private void OnEnable()
+    {
+        EventManager.SendScore += AddScore;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.SendScore -= AddScore;
+    }
+
+    private void AddScore(int score)
+    {
+        currentScore += score;
+    }
+
     public override void HandleMethod()
     {
         base.HandleMethod();
         CheckInput();
     }
-    
+
+    protected override void TakeDamage(int damage)
+    {
+        base.TakeDamage(damage);
+        //更新生命值
+        EventManager.CallUpdateHealth();
+    }
+
     /// <summary>
     /// 玩家输入。。。待修改为卡牌
     /// </summary>
-    public void CheckInput()
+    private void CheckInput()
     {
-        if ((Vector2)transform.position == new Vector2(1, 1))
-        {
-            tryTest.SetActive(true);
-            return;
-        }
+        //TODO:一个关卡胜利
+        // if ((Vector2)transform.position == new Vector2(1, 1))
+        // {
+        //     tryTest.SetActive(true);
+        //     return;
+        // }
         if (hasInput) return;
         foreach (var decision in decisions)
         {

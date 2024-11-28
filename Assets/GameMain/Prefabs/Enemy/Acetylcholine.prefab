@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 9061565243061866635}
   - component: {fileID: 3411067731550602020}
-  - component: {fileID: 1136706243572892661}
+  - component: {fileID: 7608769525109784580}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Acetylcholine
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,7 +79,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1136706243572892661
+--- !u!114 &7608769525109784580
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -88,7 +88,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 780551452008757006}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 174c488740dc0e04684ef02caa5f61b7, type: 3}
+  m_Script: {fileID: 11500000, guid: b2ea8b4fa175de74e949498e0e33b1f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
@@ -121,7 +121,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.38268343, y: 0, z: 0, w: 0.92387956}
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9061565243061866635}
@@ -167,12 +167,12 @@ SpriteRenderer:
   m_SortingLayerID: 980214847
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: -525240913, guid: 8cf5fad5c91019945bbc6bb2ceff00b3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2748ffc7df4f0424db77dbf115e03e4e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.5, y: 0.5}
+  m_Size: {x: 3, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

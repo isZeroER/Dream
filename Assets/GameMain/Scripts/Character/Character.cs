@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,6 +30,14 @@ public class Character : MonoBehaviour
     public int health;
     public int strength;
 
+    //TODO:后续改为动画
+    private SpriteRenderer sr;
+
+    protected virtual void Start()
+    {
+        sr = GetComponentInChildren<SpriteRenderer>();
+    }
+
     public virtual void HandleMethod()
     {
         
@@ -47,12 +56,28 @@ public class Character : MonoBehaviour
     /// 受到的伤害
     /// </summary>
     /// <param name="damage, 受到的伤害值"></param>
-    public virtual void TakeDamage(int damage)
+    protected virtual void TakeDamage(int damage)
     {
         health -= damage;
+        StartCoroutine(CoTakeDamage());
+    }
+
+    IEnumerator CoTakeDamage()
+    {
+        float blinkFor = 1f;
+        float timer = 0;
+        while (timer<blinkFor)
+        {
+            timer += .4f;
+            sr.color = Color.red;
+            yield return new WaitForSeconds(.2f);
+            sr.color = Color.white;
+            yield return new WaitForSeconds(.2f);
+        }
         if(health <= 0)
             Die();
     }
+    
     #endregion
 
     protected virtual void Die()

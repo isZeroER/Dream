@@ -12,9 +12,9 @@ public class AttackDecision : DecisionBase
     {
         if (waitingForChoose)
             return true;
-        if(Input.GetKeyDown(KeyCode.J) || CardManager.Instance.isToAttack)
+        if(Input.GetKeyDown(KeyCode.Space) || CardManager.Instance.isToAttack)
             waitingForChoose = true;
-        return CheckTarget(player.transform.position) && (CardManager.Instance.isToAttack || Input.GetKeyDown(KeyCode.J));
+        return CheckTarget(player.transform.position) && (CardManager.Instance.isToAttack || Input.GetKeyDown(KeyCode.Space));
     }
 
     public override void Execute()

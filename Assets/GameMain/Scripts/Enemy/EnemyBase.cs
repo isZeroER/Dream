@@ -5,7 +5,6 @@ using UnityEngine;
 
 public abstract class EnemyBase : Character
 {
-    protected Player player;
     public enum EnemyType
     {
         InactiveEndorphin,
@@ -20,13 +19,17 @@ public abstract class EnemyBase : Character
         BigOrange,
         AngryBigOrange
     }
+    protected Player player;
     private bool findPlayer;
     private int enemyBox = 5;
+    protected bool canPatrol;
+    private int enemyScore;
 
     public EnemyType enemyType;
-    protected virtual void Start()
+    protected override void Start()
     {
-        SetHealth_Strenth(3, 2);
+        base.Start();
+        SetBaseStat(3, 0, 0);
 
         //确定是敌人
         characterType = CharacterType.Enemy;
@@ -35,12 +38,17 @@ public abstract class EnemyBase : Character
         GridManager.Instance.ChangeGridInfo(transform.position, characterType);
 
         player = PlayerManager.Instance.player;
+        
+        InitEnemy();
     }
-    protected void SetHealth_Strenth(int targetHealth, int targetStrength)
+    protected void SetBaseStat(int targetHealth, int targetStrength, int targetScore)
     {
         health = targetHealth;
         strength = targetStrength;
+        enemyScore = targetScore;
     }
+
+    protected abstract void InitEnemy();
     #region ForAble
 
     private void OnEnable()
@@ -63,19 +71,23 @@ public abstract class EnemyBase : Character
         CheckPlayer();
         if (findPlayer)
         {
+            //判定是否可以攻击
             if (CanAttack())
             {
                 Attack();
             }
             else
             {
+                //带仇恨锁敌的寻路
                 HatingPatrol();
             }
             
         }
         else
         {
-            Patrol();
+            //可以游行
+            if(canPatrol)
+                Patrol();
         }
         
     }
@@ -92,28 +104,16 @@ public abstract class EnemyBase : Character
             findPlayer = false;
         }
     }
-    protected virtual bool CanAttack()
-    {
-        return true;
-    }
-    protected virtual void Attack()
-    {
-        
-    }
 
-    protected virtual void Patrol()
-    {
-        
-    }
-
-    protected virtual void HatingPatrol()
-    {
-        
-    }
+    protected abstract bool CanAttack();
+    protected abstract void Attack();
+    protected abstract void Patrol();
+    protected abstract void HatingPatrol();
 
     protected override void Die()
     {
         EnemyManager.Instance.RemoveEnemy(this);
+        EventManager.CallSendScore(enemyScore);
         base.Die();
     }
     #endregion

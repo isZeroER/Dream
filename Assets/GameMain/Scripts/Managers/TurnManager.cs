@@ -7,7 +7,12 @@ public class TurnManager : Singleton<TurnManager>
     private bool isPlayerTurn = true;
     //是否在回合中
     private bool turning;
-    [SerializeField] private Player player;
+    private Player player;
+
+    private void Start()
+    {
+        player = PlayerManager.Instance.player;
+    }
 
     private void Update()
     {
@@ -57,7 +62,6 @@ public class TurnManager : Singleton<TurnManager>
     {
         yield return new WaitForSeconds(1);
         EnemyManager.Instance.HandleTurn();
-        yield return new WaitForSeconds(1);
         player.hasInput = false;
         EndTurn();
     }
