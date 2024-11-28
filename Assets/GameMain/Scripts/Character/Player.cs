@@ -37,7 +37,7 @@ public class Player : Character
     /// </summary>
     public void CheckInput()
     {
-        if ((Vector2)transform.position == new Vector2(-3, -2))
+        if ((Vector2)transform.position == new Vector2(1, 1))
         {
             tryTest.SetActive(true);
             return;
