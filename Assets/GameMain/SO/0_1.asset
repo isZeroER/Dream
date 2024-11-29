@@ -9,12 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 29f87118336083f49908bd2ddd98b759, type: 3}
   m_Name: 0_1
   m_EditorClassIdentifier: Assembly-CSharp::LevelSet
-  playerBorn: {x: -1, y: 0}
-  EnemySettingsList:
-  - enemyType: 0
-    bornPoint: {x: 1, y: 0}
-    directions: []
-    isLoop: 0
+  points: []
