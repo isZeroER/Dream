@@ -26,6 +26,8 @@ public abstract class EnemyBase : Character
     private int enemyScore;
 
     public EnemyType enemyType;
+    //游走路线
+    private List<Vector2> pathDir = new List<Vector2>();
     protected override void Start()
     {
         base.Start();
@@ -48,6 +50,13 @@ public abstract class EnemyBase : Character
         enemyScore = targetScore;
     }
 
+    public void SetupBorn(Vector2 pos, List<Vector2> pathDir)
+    {
+        transform.position = pos;
+        this.pathDir = pathDir;
+        UpdateGridInfo();
+    }
+    
     protected abstract void InitEnemy();
     #region ForAble
 

@@ -9,6 +9,7 @@ public class Player : Character
     private List<IDecision> decisions = new List<IDecision>();
     public static event Action UpdatePlayerPos;
     public int currentScore { get; private set; }
+    public ThinkBluePrint thinkBluePrint;
     [Space] 
     [SerializeField] private GameObject tryTest;
     protected override void Start()
@@ -28,7 +29,8 @@ public class Player : Character
         decisions.Add(new DodgeDecision(this));
     }
 
-
+    #region ForAble
+    
     private void OnEnable()
     {
         EventManager.SendScore += AddScore;
@@ -38,7 +40,23 @@ public class Player : Character
     {
         EventManager.SendScore -= AddScore;
     }
+    #endregion
 
+    public void SetupBluePrint(ThinkBluePrint thinkBluePrint)
+    {
+        this.thinkBluePrint = thinkBluePrint;
+    }
+
+    /// <summary>
+    /// 初始化Player的关卡位置
+    /// </summary>
+    /// <param name="thePos"></param>
+    public void SetupBornPos(Vector2 thePos)
+    {
+        transform.position = thePos;
+        UpdateGridInfo();
+    }
+    
     private void AddScore(int score)
     {
         currentScore += score;
@@ -56,10 +74,7 @@ public class Player : Character
         //更新生命值
         EventManager.CallUpdateHealth();
     }
-
-    /// <summary>
-    /// 玩家输入。。。待修改为卡牌
-    /// </summary>
+    
     private void CheckInput()
     {
         //TODO:一个关卡胜利
@@ -95,13 +110,9 @@ public class Player : Character
     /// <summary>
     /// 输入之后，格子信息发生改变，当前GridInfo发生改变
     /// </summary>
-    private void UpdateGridInfo()
+    protected override void UpdateGridInfo()
     {
-        GridManager.Instance.ChangeGridInfo(currentGrid, CharacterType.None);
-        //这里
-        currentGrid = GridManager.Instance.GetGridByPos(transform.position);
-        GridManager.Instance.ChangeGridInfo(currentGrid, characterType);
-        
+        base.UpdateGridInfo();
         UpdatePlayerPos?.Invoke();
     }
 }

@@ -59,6 +59,8 @@ public class Character : MonoBehaviour
     protected virtual void TakeDamage(int damage)
     {
         health -= damage;
+        if(health <= 0)
+            Die();
         StartCoroutine(CoTakeDamage());
     }
 
@@ -74,16 +76,23 @@ public class Character : MonoBehaviour
             sr.color = Color.white;
             yield return new WaitForSeconds(.2f);
         }
-        if(health <= 0)
-            Die();
     }
     
     #endregion
 
+    protected virtual void UpdateGridInfo()
+    {
+        GridManager.Instance.ChangeGridInfo(currentGrid, CharacterType.None);
+        //这里
+        currentGrid = GridManager.Instance.GetGridByPos(transform.position);
+        GridManager.Instance.ChangeGridInfo(currentGrid, characterType);
+    }
     protected virtual void Die()
     {
         Debug.Log("死了");
         currentGrid.characterType = CharacterType.None;
-        Destroy(gameObject);
+        Invoke(nameof(DestroyCharacter), 1f);
     }
+
+    private void DestroyCharacter() => Destroy(gameObject);
 }

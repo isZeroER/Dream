@@ -41,7 +41,7 @@ public class MoveDecision : DecisionBase
             }
         }
         
-        return GridManager.Instance.CanWalkTo(targetPos) && (Input.GetKeyDown(GetKeyForDirection()));
+        return GridManager.Instance.WalkToCheck_EnemyCheck(targetPos) && (Input.GetKeyDown(GetKeyForDirection()));
     }
 
     public override void Execute()
@@ -65,7 +65,7 @@ public class MoveDecision : DecisionBase
             return false;
 
         
-        return GridManager.Instance.CanWalkTo(gridPos);
+        return GridManager.Instance.WalkToCheck_EnemyCheck(gridPos);
     }
 
     private KeyCode GetKeyForDirection()

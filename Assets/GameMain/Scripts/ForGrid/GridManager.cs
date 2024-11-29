@@ -22,8 +22,10 @@ public class GridManager : Singleton<GridManager>
         currentMap = wholeTilemaps[currentTileMapId];
         currentMap.gameObject.SetActive(true);
         GetTileMap();
-
+        InitLevel initLevel = currentMap.gameObject.GetComponentInChildren<InitLevel>();
+        InitTheLevel(initLevel.levelSet);
     }
+
 
     private void OnEnable()
     {
@@ -50,6 +52,23 @@ public class GridManager : Singleton<GridManager>
         currentMap = wholeTilemaps[currentTileMapId];
         currentMap.gameObject.SetActive(true);
         GetTileMap();
+        
+        //TODO:根据蓝图确定出生点（玩家和敌人）
+        InitLevel initLevel = currentMap.gameObject.GetComponentInChildren<InitLevel>();
+        InitTheLevel(initLevel.levelSet);
+    }
+
+    /// <summary>
+    /// 关卡设置
+    /// </summary>
+    /// <param name="levelSet"></param>
+    private void InitTheLevel(LevelSet levelSet)
+    {
+        PlayerManager.Instance.player.SetupBornPos(levelSet.playerBorn);
+        foreach (var enemySetting in levelSet.EnemySettingsList)
+        {
+            EnemyManager.Instance.GenerateEnemy(enemySetting);
+        }
     }
 
     /// <summary>
@@ -156,12 +175,18 @@ public class GridManager : Singleton<GridManager>
     
     public void ShowAround(Vector2 pos)
     {
-        CanWalkTo(pos + Vector2.up);
-        CanWalkTo(pos + Vector2.down);
-        CanWalkTo(pos + Vector2.left);
-        CanWalkTo(pos + Vector2.right);
+        WalkToCheck_EnemyCheck(pos + Vector2.up);
+        WalkToCheck_EnemyCheck(pos + Vector2.down);
+        WalkToCheck_EnemyCheck(pos + Vector2.left);
+        WalkToCheck_EnemyCheck(pos + Vector2.right);
     }
-    public bool CanWalkTo(Vector2 theTarget)
+    
+    /// <summary>
+    /// 判断目标格子是否可以行走，顺便把敌人显示了
+    /// </summary>
+    /// <param name="theTarget"></param>
+    /// <returns></returns>
+    public bool WalkToCheck_EnemyCheck(Vector2 theTarget)
     {
         Vector3Int target = new Vector3Int((int)theTarget.x, (int)theTarget.y, 0);
         GridInfo targetGrid = GetGridByPos(theTarget);
@@ -175,11 +200,28 @@ public class GridManager : Singleton<GridManager>
         {
             if (targetGrid == null)
                 return false;
-            if(targetGrid.characterType == Character.CharacterType.Enemy)
-                forTip.SetTile(target, enemyHighlightTile);
+            CheckisEnemy(targetGrid, new Vector2(target.x, target.y));
             return false;
         }
     }
+
+    public bool CheckisEnemy(Vector2 theTarget)
+    {
+        return CheckisEnemy(GetGridByPos(theTarget), theTarget);
+    }
+    private bool CheckisEnemy(GridInfo targetGrid, Vector2 theTarget)
+    {
+        Vector3Int target = new Vector3Int((int)theTarget.x, (int)theTarget.y, 0);
+        if (targetGrid == null)
+            return false;
+        if (targetGrid.characterType == Character.CharacterType.Enemy)
+        {
+            forTip.SetTile(target, enemyHighlightTile);
+            return true;
+        }
+        return false;
+    }
+
     #endregion
     public void ClearTip() => forTip.ClearAllTiles();
 }
