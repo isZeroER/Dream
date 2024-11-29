@@ -41,8 +41,11 @@ public class GridManager : Singleton<GridManager>
     {
         currentMap.gameObject.SetActive(false);
         tileDict.Clear();
+        //先将所有上一关卡怪物清理
+        EnemyManager.Instance.ClearAllEnemies();
         //下一关卡
         currentTileMapId++;
+        Debug.Log(currentTileMapId);
         //如果等于，说明没有下一关，本关结束
         if (currentTileMapId == wholeTilemaps.Length)
         {
@@ -53,7 +56,6 @@ public class GridManager : Singleton<GridManager>
         currentMap.gameObject.SetActive(true);
         GetTileMap();
         
-        //TODO:根据蓝图确定出生点（玩家和敌人）
         InitLevel initLevel = currentMap.gameObject.GetComponentInChildren<InitLevel>();
         InitTheLevel(initLevel.levelSet);
     }
@@ -64,6 +66,7 @@ public class GridManager : Singleton<GridManager>
     /// <param name="levelSet"></param>
     private void InitTheLevel(LevelSet levelSet)
     {
+        //设置玩家地点
         PlayerManager.Instance.player.SetupBornPos(levelSet.playerBorn);
         foreach (var enemySetting in levelSet.EnemySettingsList)
         {
@@ -166,21 +169,13 @@ public class GridManager : Singleton<GridManager>
         if (gridInfo != null)
             gridInfo.characterType = state;
         else
-            Debug.LogError("GridInfo is null");
+            Debug.LogWarning("GridInfo is null");
     }
 
     #endregion
 
     #region 高光显示周围格子
-    
-    public void ShowAround(Vector2 pos)
-    {
-        WalkToCheck_EnemyCheck(pos + Vector2.up);
-        WalkToCheck_EnemyCheck(pos + Vector2.down);
-        WalkToCheck_EnemyCheck(pos + Vector2.left);
-        WalkToCheck_EnemyCheck(pos + Vector2.right);
-    }
-    
+
     /// <summary>
     /// 判断目标格子是否可以行走，顺便把敌人显示了
     /// </summary>

@@ -1346,6 +1346,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7631545722123021894, guid: c9c5cd9c2b67e424cb32d0b7e31567bf, type: 3}
+      propertyPath: levelSet
+      value: 
+      objectReference: {fileID: 11400000, guid: 1ff196fcfd8026a459d479cdf3adb542, type: 2}
     - target: {fileID: 8194701778235418526, guid: c9c5cd9c2b67e424cb32d0b7e31567bf, type: 3}
       propertyPath: m_Name
       value: Tilemap_1
@@ -4317,6 +4321,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7631545722123021894, guid: c9c5cd9c2b67e424cb32d0b7e31567bf, type: 3}
+      propertyPath: levelSet
+      value: 
+      objectReference: {fileID: 11400000, guid: 0f5481e4e39520643ac7728b73bd51f1, type: 2}
     - target: {fileID: 8194701778235418526, guid: c9c5cd9c2b67e424cb32d0b7e31567bf, type: 3}
       propertyPath: m_Name
       value: Tilemap_2
@@ -6891,6 +6899,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7631545722123021894, guid: c9c5cd9c2b67e424cb32d0b7e31567bf, type: 3}
+      propertyPath: levelSet
+      value: 
+      objectReference: {fileID: 11400000, guid: e6c8d5ec1dfe2ff499fbc492e6b8205a, type: 2}
     - target: {fileID: 8194701778235418526, guid: c9c5cd9c2b67e424cb32d0b7e31567bf, type: 3}
       propertyPath: m_Name
       value: Tilemap_3

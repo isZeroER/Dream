@@ -16,6 +16,7 @@ public class TurnManager : Singleton<TurnManager>
 
     private void Update()
     {
+        //判断是哪一方回合
         if (!turning)
         {
             if (isPlayerTurn)

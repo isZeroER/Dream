@@ -80,7 +80,7 @@ public class Character : MonoBehaviour
     
     #endregion
 
-    protected virtual void UpdateGridInfo()
+    public virtual void UpdateGridInfo()
     {
         GridManager.Instance.ChangeGridInfo(currentGrid, CharacterType.None);
         //这里

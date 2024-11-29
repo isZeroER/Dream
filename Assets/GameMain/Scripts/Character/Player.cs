@@ -10,8 +10,9 @@ public class Player : Character
     public static event Action UpdatePlayerPos;
     public int currentScore { get; private set; }
     public ThinkBluePrint thinkBluePrint;
-    [Space] 
-    [SerializeField] private GameObject tryTest;
+
+    //玩家是否在移动
+    public bool isMoving;
     protected override void Start()
     {
         base.Start();
@@ -77,13 +78,7 @@ public class Player : Character
     
     private void CheckInput()
     {
-        //TODO:一个关卡胜利
-        // if ((Vector2)transform.position == new Vector2(1, 1))
-        // {
-        //     tryTest.SetActive(true);
-        //     return;
-        // }
-        if (hasInput) return;
+        if (hasInput || isMoving) return;
         foreach (var decision in decisions)
         {
             if (decision.Evaluate())
@@ -91,11 +86,6 @@ public class Player : Character
                 decision.Execute();
                 break;
             }
-        }
-
-        if (hasInput)
-        {
-            UpdateGridInfo(); 
         }
     }
 
@@ -110,7 +100,7 @@ public class Player : Character
     /// <summary>
     /// 输入之后，格子信息发生改变，当前GridInfo发生改变
     /// </summary>
-    protected override void UpdateGridInfo()
+    public override void UpdateGridInfo()
     {
         base.UpdateGridInfo();
         UpdatePlayerPos?.Invoke();

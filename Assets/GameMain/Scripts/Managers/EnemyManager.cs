@@ -29,6 +29,15 @@ public class EnemyManager : Singleton<EnemyManager>
         Debug.Log("新的");
         EnemyBase newEnemy = Instantiate(emPrefabDict[enemySetting.enemyType.ToString()], characterRoot).GetComponent<EnemyBase>();
         newEnemy.SetupBorn(enemySetting.bornPoint, enemySetting.directions);
+        RefreshEnemies();
+    }
+
+    public void ClearAllEnemies()
+    {
+        foreach (var enemy in currentExistsEnemies)
+        {
+            enemy.gameObject.SetActive(false);
+        }
     }
 
     private void RefreshEnemies()

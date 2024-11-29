@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class MoveDecision : DecisionBase
@@ -41,13 +42,19 @@ public class MoveDecision : DecisionBase
             }
         }
         
-        return GridManager.Instance.WalkToCheck_EnemyCheck(targetPos) && (Input.GetKeyDown(GetKeyForDirection()));
+        return GridManager.Instance.WalkToCheck_EnemyCheck(targetPos) && Input.GetKeyDown(GetKeyForDirection());
     }
 
     public override void Execute()
     {
-        player.transform.Translate(direction.x, direction.y, 0);
-        player.hasInput = true;
+        player.isMoving = true;
+        Vector2 targetPos = new Vector2(player.transform.position.x + direction.x,
+            player.transform.position.y + direction.y);
+        player.transform.DOMove(targetPos, .5f).OnComplete(() =>
+        {
+            player.isMoving = false;
+            player.hasInput = true;
+        });
     }
     
     /// <summary>
@@ -81,5 +88,6 @@ public class MoveDecision : DecisionBase
         CardManager.Instance.isToMove = false;
         isMovingWithMouse = false;
         direction = baseDirection;
+        player.UpdateGridInfo();
     }
 }
