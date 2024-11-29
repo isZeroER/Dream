@@ -22,7 +22,7 @@ public class EM_Glycine : EnemyBase
 
     protected override void Patrol()
     {
-        
+        base.Patrol();
     }
 
     protected override void HatingPatrol()

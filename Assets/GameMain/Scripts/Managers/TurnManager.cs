@@ -61,8 +61,9 @@ public class TurnManager : Singleton<TurnManager>
 
     private IEnumerator EnemyAction()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(.51f);
         EnemyManager.Instance.HandleTurn();
+        yield return new WaitForSeconds(.51f);
         player.hasInput = false;
         EndTurn();
     }

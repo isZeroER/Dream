@@ -16,8 +16,10 @@ public class LevelSet : ScriptableObject
         public Vector2 bornPoint;
         [Header("基本路线")]
         public List<Vector2> directions = new List<Vector2>();
-        [Header("是否循环路线")]
-        public bool isLoop;
+        [Header("是否回合外移动")]
+        public bool isMoveAside;
+        [Header("是否仇恨移动")]
+        public bool isMoveHating;
     }
 
     [Header("玩家出生位置")]

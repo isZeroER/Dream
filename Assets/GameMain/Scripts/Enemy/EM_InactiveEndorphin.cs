@@ -34,7 +34,7 @@ public class EM_InactiveEndorphin : EnemyBase
 
     protected override void Patrol()
     {
-        
+        base.Patrol();
     }
 
     protected override void HatingPatrol()

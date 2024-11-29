@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public abstract class EnemyBase : Character
@@ -22,12 +23,16 @@ public abstract class EnemyBase : Character
     protected Player player;
     private bool findPlayer;
     private int enemyBox = 5;
-    protected bool canPatrol;
+    public bool canPatrol;
+    private bool isHating;
     private int enemyScore;
+
+    public bool mainTurn;
 
     public EnemyType enemyType;
     //游走路线
     private List<Vector2> pathDir = new List<Vector2>();
+    private int currentPath = 0;
     protected override void Start()
     {
         base.Start();
@@ -50,10 +55,12 @@ public abstract class EnemyBase : Character
         enemyScore = targetScore;
     }
 
-    public void SetupBorn(Vector2 pos, List<Vector2> pathDir)
+    public void SetupBorn(Vector2 pos, List<Vector2> pathDir, bool canPatrol, bool isHating)
     {
         transform.position = pos;
         this.pathDir = pathDir;
+        this.canPatrol = canPatrol;
+        this.isHating = isHating;
         UpdateGridInfo();
     }
     
@@ -78,7 +85,8 @@ public abstract class EnemyBase : Character
     {
         base.HandleMethod();
         CheckPlayer();
-        if (findPlayer)
+        // Debug.Log(enemyType + "Handling~" + canPatrol);
+        if (findPlayer && isHating && mainTurn)
         {
             //判定是否可以攻击
             if (CanAttack())
@@ -98,7 +106,14 @@ public abstract class EnemyBase : Character
             if(canPatrol)
                 Patrol();
         }
-        
+
+        //回合结束，状态清除
+        ClearStat();
+    }
+
+    private void ClearStat()
+    {
+        mainTurn = false;
     }
     protected virtual void CheckPlayer()
     {
@@ -114,9 +129,22 @@ public abstract class EnemyBase : Character
         }
     }
 
+    protected virtual void Patrol()
+    {
+        Vector2 theDir = pathDir[currentPath];
+        Vector2 targetPos = new Vector2(transform.position.x + theDir.x, transform.position.y + theDir.y);
+        //如果目标路径不为空，则不动
+        if (GridManager.Instance.GetGridByPos(targetPos)!=null && GridManager.Instance.GetGridByPos(targetPos).characterType != CharacterType.None)
+            return;
+        transform.DOMove(targetPos, 0.5f).OnComplete(UpdateGridInfo);
+        currentPath++;
+        if (currentPath == pathDir.Count)
+            currentPath = 0;
+    }
+    
     protected abstract bool CanAttack();
     protected abstract void Attack();
-    protected abstract void Patrol();
+    
     protected abstract void HatingPatrol();
 
     protected override void Die()

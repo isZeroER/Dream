@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f69ba132deb19794a94b8b03736c00f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileMap: {fileID: 0}
+  wholeTilemaps: []
   forTip: {fileID: 0}
   highlightTile: {fileID: 11400000, guid: 5b9810f3357e18541be14e45f16a6bbe, type: 2}
   enemyHighlightTile: {fileID: 11400000, guid: a299d5378e78df14d9d54b8e7ac36827, type: 2}
@@ -175,6 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 400706e258087d643a03b1a722582a7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemiesPrefabs: {fileID: 11400000, guid: 17f7d45ac4386fb489a0d9a2d256d9a2, type: 2}
 --- !u!1 &8640963526263849287
 GameObject:
   m_ObjectHideFlags: 0
@@ -219,7 +220,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f671846efcf80ce4e9775d4ddb44a6e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
 --- !u!1 &8724592601140815098
 GameObject:
   m_ObjectHideFlags: 0

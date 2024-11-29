@@ -70,6 +70,8 @@ public class GridManager : Singleton<GridManager>
         PlayerManager.Instance.player.SetupBornPos(levelSet.playerBorn);
         foreach (var enemySetting in levelSet.EnemySettingsList)
         {
+            if (EnemyManager.Instance == null)
+                Debug.Log("enemyManager");
             EnemyManager.Instance.GenerateEnemy(enemySetting);
         }
     }
