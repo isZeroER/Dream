@@ -33,11 +33,9 @@ public class EM_CloudCoffee : EnemyBase
     {
         DoDamage(strength, player);
         Vector2 dir = player.currentGrid.position - currentGrid.position;
-        Debug.Log(dir);
         if (GridManager.Instance.GetGridByPos(player.currentGrid.position+dir) == null)
         {
             dir = Random.Range(0, 2) == 0 ? Vector2.Perpendicular(dir) : -Vector2.Perpendicular(dir);
-            Debug.Log(dir);
         }
 
         if (GridManager.Instance.GetGridByPos(player.currentGrid.position+dir) == null)

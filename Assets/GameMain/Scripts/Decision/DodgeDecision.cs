@@ -19,11 +19,9 @@ public class DodgeDecision : DecisionBase
         //玩家与怪物位置调换
         Vector2 playerToPos = player.toDodge.currentGrid.position;
         //更新位置信息
-        player.toDodge.transform.DOMove(player.transform.position, .5f).OnComplete(()=>
-        {
-            player.toDodge.UpdateGridInfo();
-            player.UpdateGridInfo();
-        });
+        player.toDodge.isIgnore = true;
+        player.toDodge.transform.DOMove(player.transform.position, .5f);
+        player.toDodge.UpdateGridInfoNow(player.transform.position);
         player.transform.DOMove(playerToPos, .49f).OnComplete(() =>
         {
             player.isMoving = false;
@@ -34,7 +32,6 @@ public class DodgeDecision : DecisionBase
 
     private bool CheckCanDodge()
     {
-        Debug.Log(player.canDodge+" "+player.isDodgeIgnore);
         //先判断是否冷却
         if (player.isDodgeIgnore)
             return false;
@@ -55,7 +52,7 @@ public class DodgeDecision : DecisionBase
     {
         //0.1秒后使得不能动弹
         await Task.Delay(TimeSpan.FromSeconds(.1f));
-        //一个回合不能动弹
+        //一个回合不能闪避
         player.isDodgeIgnore = true;
     }
 }
