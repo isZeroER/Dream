@@ -14,6 +14,16 @@ public class EnemyManager : Singleton<EnemyManager>
     private EnemyBase _closestEnemyBase;
     //角色根物体
     private Transform characterRoot;
+
+    private Transform CharacterRoot
+    {
+        get
+        {
+            if (characterRoot == null)
+                characterRoot = GameObject.Find("Characters").transform;
+            return characterRoot;
+        }
+    }
     //敌人预制体SO
     public EnemiesPrefabs enemiesPrefabs;
     //敌人预制体字典
