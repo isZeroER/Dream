@@ -87,6 +87,13 @@ public class Character : MonoBehaviour
         currentGrid = GridManager.Instance.GetGridByPos(transform.position);
         GridManager.Instance.ChangeGridInfo(currentGrid, characterType);
     }
+
+    public virtual void UpdateGridInfoNow(Vector2 targetPos)
+    {
+        GridManager.Instance.ChangeGridInfo(currentGrid, CharacterType.None);
+        currentGrid = GridManager.Instance.GetGridByPos(targetPos);
+        GridManager.Instance.ChangeGridInfo(targetPos, characterType);
+    }
     protected virtual void Die()
     {
         Debug.Log(characterType + "死了");

@@ -8,8 +8,11 @@ public class GridManager : Singleton<GridManager>
 {
     [SerializeField] private Tilemap[] wholeTilemaps;
     [SerializeField] private Tilemap forTip;
+    [SerializeField] private Tilemap enemyRoute;
+    
     [SerializeField] private TileBase highlightTile;
     [SerializeField] private TileBase enemyHighlightTile;
+    [SerializeField] private TileBase[] enemyRouteHighlightTile;
     
     private Tilemap currentMap;
     private LevelSet levelSet;
@@ -28,6 +31,7 @@ public class GridManager : Singleton<GridManager>
         InitTheLevel();
     }
 
+    #region FORABLE
 
     private void OnEnable()
     {
@@ -38,6 +42,16 @@ public class GridManager : Singleton<GridManager>
     {
         EventManager.NextTileMap -= NextTileMap;
     }
+
+    #endregion
+
+    public List<GridInfo> FindPath(Vector2 startPos, Vector2 endPos)
+    {
+        AStar aStar = new AStar(this);
+        return aStar.FindPath(startPos, endPos);
+    }
+
+    #region FORLEVEL
 
     private void NextTileMap()
     {
@@ -109,6 +123,11 @@ public class GridManager : Singleton<GridManager>
         }
     }
     
+
+    #endregion
+    
+    #region GetGrid
+
     private int GetTileIndex(int x, int y, BoundsInt bounds)
     {
         if (x < bounds.xMin || x > bounds.xMax || y < bounds.yMin || y > bounds.yMax) 
@@ -116,10 +135,6 @@ public class GridManager : Singleton<GridManager>
         //行数 * 每行个数，加上这行前面的个数
         return (y - bounds.yMin) * bounds.size.x + (x - bounds.xMin);
     }
-
-
-    #region GetGrid
-
     public GridInfo GetGridByPos(Vector2 pos)
     {
         Vector2 realPos = new Vector2((int)Math.Round(pos.x), (int)Math.Round(pos.y));
@@ -225,6 +240,73 @@ public class GridManager : Singleton<GridManager>
         return false;
     }
 
+    /// <summary>
+    /// 显示敌人路线格子
+    /// </summary>
+    /// <param name="routePath"></param>
+    public void SetEnemyRoute(List<GridInfo> routePath)
+    {
+        //清理上一回合路线
+        ClearHatingRoute();
+        for (int i = 0; i < routePath.Count - 1; i++)  // 遍历到倒数第二个格子
+        {
+            Vector2 currentPos = routePath[i].position;
+            Vector2 nextPos = routePath[i + 1].position;
+
+            // 在当前位置生成箭头
+            if (i != routePath.Count - 2)
+                PlaceArrowAtPosition(currentPos, nextPos, false);
+            else
+                PlaceArrowAtPosition(currentPos, nextPos, true);
+        }
+    }
+    // 在指定位置放置箭头，并根据方向调整朝向
+    private void PlaceArrowAtPosition(Vector2 currentPos, Vector2 nextPos, bool lastOne)
+    {
+        // 计算箭头的朝向
+        Vector2 direction = nextPos - currentPos;  // 计算当前格子到下一个格子的方向
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;  // 转换为角度
+        
+        Vector3Int target = new Vector3Int((int)currentPos.x, (int)currentPos.y, 0);
+        
+        if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y)) // 主要沿水平方向
+        {
+            if (direction.x > 0)
+            {
+                if(lastOne)
+                    enemyRoute.SetTile(target, enemyRouteHighlightTile[3]); // 右
+                else 
+                    enemyRoute.SetTile(target, enemyRouteHighlightTile[5]); // 横着
+            }
+            else
+            {
+                if(lastOne)
+                    enemyRoute.SetTile(target, enemyRouteHighlightTile[2]); // 左
+                else
+                    enemyRoute.SetTile(target, enemyRouteHighlightTile[5]); // 横着
+            }
+        }
+        else // 主要沿垂直方向
+        {
+            if (direction.y > 0)
+            {
+                if(lastOne)
+                    enemyRoute.SetTile(target, enemyRouteHighlightTile[0]); // 上
+                else 
+                    enemyRoute.SetTile(target, enemyRouteHighlightTile[4]); // 竖着
+            }
+            else
+            {
+                if(lastOne)
+                    enemyRoute.SetTile(target, enemyRouteHighlightTile[1]); // 下
+                else 
+                    enemyRoute.SetTile(target, enemyRouteHighlightTile[4]); // 竖着
+            }
+        }
+        
+    }
+
     #endregion
     public void ClearTip() => forTip.ClearAllTiles();
+    public void ClearHatingRoute() => enemyRoute.ClearAllTiles();
 }

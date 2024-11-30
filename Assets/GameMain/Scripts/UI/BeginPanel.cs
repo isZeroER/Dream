@@ -23,6 +23,12 @@ public class BeginPanel : BasePanel
         sectionSelect.SetActive(true);
     }
 
+    public void BackToMenu()
+    {
+        options.SetActive(true);
+        sectionSelect.SetActive(false);
+    }
+
     public void About()
     {
         

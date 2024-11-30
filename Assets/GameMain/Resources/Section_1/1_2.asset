@@ -23,14 +23,14 @@ MonoBehaviour:
     bornPoint: {x: -2, y: 1}
     directions: []
     isMoveAside: 0
-    isMoveHating: 0
+    isMoveHating: 1
   - enemyType: 6
     bornPoint: {x: 1, y: 1}
     directions: []
     isMoveAside: 0
-    isMoveHating: 0
+    isMoveHating: 1
   - enemyType: 6
     bornPoint: {x: -1, y: -1}
     directions: []
     isMoveAside: 0
-    isMoveHating: 0
+    isMoveHating: 1

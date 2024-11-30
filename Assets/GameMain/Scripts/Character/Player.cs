@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class Player : Character
@@ -13,6 +14,10 @@ public class Player : Character
 
     //玩家是否在移动
     public bool isMoving;
+    //是否可以闪避 以及 闪避是否冷却
+    public bool canDodge = false;
+    public bool isDodgeIgnore = false;
+    public EnemyBase toDodge;
     protected override void Start()
     {
         base.Start();
@@ -65,7 +70,6 @@ public class Player : Character
 
     public override void HandleMethod()
     {
-        base.HandleMethod();
         CheckInput();
     }
 
@@ -78,6 +82,7 @@ public class Player : Character
     
     private void CheckInput()
     {
+        //如果现在有输入 或者 玩家正在移动，就不进行回合
         if (hasInput || isMoving) return;
         foreach (var decision in decisions)
         {
@@ -104,5 +109,15 @@ public class Player : Character
     {
         base.UpdateGridInfo();
         UpdatePlayerPos?.Invoke();
+    }
+
+    public void BeMove(Vector2 targetPos)
+    {
+        isMoving = true;
+        transform.DOMove(targetPos, .49f).OnComplete(() =>
+        {
+            isMoving = false;
+            UpdateGridInfo();
+        });
     }
 }

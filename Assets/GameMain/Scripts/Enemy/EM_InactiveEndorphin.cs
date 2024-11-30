@@ -8,7 +8,12 @@ public class EM_InactiveEndorphin : EnemyBase
     {
         enemyType = EnemyType.InactiveEndorphin;
         //血量和攻击力
-        SetBaseStat(6,0, 6);
+        SetBaseStat(6,0, 2);
+    }
+
+    protected override void CheckHate()
+    {
+        
     }
 
     protected override bool CanAttack()
@@ -39,6 +44,6 @@ public class EM_InactiveEndorphin : EnemyBase
 
     protected override void HatingPatrol()
     {
-        
+        base.HatingPatrol();
     }
 }

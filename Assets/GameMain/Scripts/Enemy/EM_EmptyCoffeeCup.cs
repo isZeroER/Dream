@@ -6,6 +6,12 @@ public class EM_EmptyCoffeeCup : EnemyBase
 {
     protected override void InitEnemy()
     {
+        enemyType = EnemyType.EmptyCoffeeCup;
+        SetBaseStat(6, 0, 4);
+    }
+
+    protected override void CheckHate()
+    {
         
     }
 
@@ -21,7 +27,7 @@ public class EM_EmptyCoffeeCup : EnemyBase
 
     protected override void HatingPatrol()
     {
-        
+        base.HatingPatrol();
     }
 
     protected override void Patrol()

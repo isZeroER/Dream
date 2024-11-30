@@ -89,5 +89,8 @@ public class MoveDecision : DecisionBase
         isMovingWithMouse = false;
         direction = baseDirection;
         player.UpdateGridInfo();
+        
+        //一个回合的闪避解除
+        player.isDodgeIgnore = false;
     }
 }

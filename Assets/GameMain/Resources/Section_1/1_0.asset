@@ -23,4 +23,4 @@ MonoBehaviour:
     bornPoint: {x: 1, y: 0}
     directions: []
     isMoveAside: 0
-    isMoveHating: 0
+    isMoveHating: 1

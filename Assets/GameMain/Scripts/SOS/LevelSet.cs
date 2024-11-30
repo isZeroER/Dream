@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -20,10 +21,13 @@ public class LevelSet : ScriptableObject
         public bool isMoveAside;
         [Header("是否仇恨移动")]
         public bool isMoveHating;
+        [Header("是否清楚才可以下一关")]
+        public bool needClear;
     }
 
     [Header("玩家出生位置")]
     public Vector2 playerBorn;
     [Header("敌人设置")]
     public List<EnemySettings> EnemySettingsList = new List<EnemySettings>();
+    
 }

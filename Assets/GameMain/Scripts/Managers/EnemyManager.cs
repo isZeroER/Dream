@@ -75,22 +75,20 @@ public class EnemyManager : Singleton<EnemyManager>
         _closestEnemyBase = FindCloseEnemy();
         if (_closestEnemyBase == null)
         {
-            //TODO:怪物死亡时要不要触发效果
-            // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            //TODO:清楚完才可以结束
             return;
         }
 
-        _closestEnemyBase.mainTurn = true;
+        // _closestEnemyBase.mainTurn = true;
         
         //只有最近的怪物可以触发回合
-        _closestEnemyBase.HandleMethod();
-        foreach (var canPatrol in canPatrolEnemies)
+        // _closestEnemyBase.HandleMethod();
+
+        //直接所有怪物进行决策
+        foreach (var existsEnemy in currentExistsEnemies)
         {
-            //避免最近的怪物再次行动
-            if(canPatrol.Equals(_closestEnemyBase))
-                continue;
-            if(canPatrol!=null)
-                canPatrol.HandleMethod();
+            if (existsEnemy != null)
+                existsEnemy.HandleMethod();
         }
     }
 

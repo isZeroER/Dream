@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 public class PlayerStatPanel : BasePanel
 {
     [SerializeField] private Transform hearts;
-
+    [SerializeField] private GameObject stopMenu;
     private Player player;
     private Player Player
     {
@@ -41,5 +41,35 @@ public class PlayerStatPanel : BasePanel
         {
             hearts.transform.GetChild(i).gameObject.SetActive(true);
         }
+    }
+
+    public void VolumeControl()
+    {
+        
+    }
+    public void ShowStopMenu()
+    {
+        stopMenu.SetActive(true);
+        Time.timeScale = 0;
+    }
+
+    public void BackToGame()
+    {
+        stopMenu.SetActive(false);
+        Time.timeScale = 1;
+    }
+    
+    public void ToTheMainMenu()
+    {
+        SceneMgr.Instance.ChangeToScene(SceneName.StartScene.ToString());
+        stopMenu.SetActive(false);
+        Close();
+    }
+    
+    public void RePlay()
+    {
+        SceneMgr.Instance.ChangeToScene(SceneMgr.Instance.currentScene.ToString());
+        stopMenu.SetActive(false);
+        Close();
     }
 }

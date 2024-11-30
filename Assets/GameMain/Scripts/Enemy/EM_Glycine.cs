@@ -7,12 +7,17 @@ public class EM_Glycine : EnemyBase
     protected override void InitEnemy()
     {
         enemyType = EnemyType.Glycine;
-        SetBaseStat(4, 0, 4);
+        SetBaseStat(4, 1,3);
+    }
+
+    protected override void CheckHate()
+    {
+        
     }
 
     protected override bool CanAttack()
     {
-        return true;
+        return false;
     }
 
     protected override void Attack()
@@ -27,6 +32,6 @@ public class EM_Glycine : EnemyBase
 
     protected override void HatingPatrol()
     {
-        
+        base.HatingPatrol();
     }
 }

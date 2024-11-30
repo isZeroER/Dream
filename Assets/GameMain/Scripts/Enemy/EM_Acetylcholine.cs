@@ -6,13 +6,18 @@ public class EM_Acetylcholine : EnemyBase
 {
     protected override void InitEnemy()
     {
-        SetBaseStat(12, 0, 3);
         enemyType = EnemyType.Acetylcholine;       
+        SetBaseStat(12, 0, 3);
+    }
+
+    protected override void CheckHate()
+    {
+        
     }
 
     protected override bool CanAttack()
     {
-        return true;
+        return false;
     }
 
     protected override void Attack()
@@ -27,6 +32,6 @@ public class EM_Acetylcholine : EnemyBase
 
     protected override void HatingPatrol()
     {
-        
+        base.HatingPatrol();
     }
 }
