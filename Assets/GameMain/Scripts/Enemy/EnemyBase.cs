@@ -61,6 +61,7 @@ public abstract class EnemyBase : Character
         this.pathDir = pathDir;
         this.canPatrol = canPatrol;
         this.isHating = isHating;
+        currentPatrol = pos;
         UpdateGridInfo();
     }
     
@@ -129,14 +130,17 @@ public abstract class EnemyBase : Character
         }
     }
 
+    private Vector2 currentPatrol;
     protected virtual void Patrol()
     {
         Vector2 theDir = pathDir[currentPath];
-        Vector2 targetPos = new Vector2(transform.position.x + theDir.x, transform.position.y + theDir.y);
+        Vector2 targetPos = new Vector2(currentPatrol.x + theDir.x, currentPatrol.y + theDir.y);
         //如果目标路径不为空，则不动
         if (GridManager.Instance.GetGridByPos(targetPos)!=null && GridManager.Instance.GetGridByPos(targetPos).characterType != CharacterType.None)
             return;
         transform.DOMove(targetPos, 0.5f).OnComplete(UpdateGridInfo);
+        //从出生地算起的位置
+        currentPatrol += theDir;
         currentPath++;
         if (currentPath == pathDir.Count)
             currentPath = 0;

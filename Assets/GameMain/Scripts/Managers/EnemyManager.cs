@@ -34,7 +34,6 @@ public class EnemyManager : Singleton<EnemyManager>
     /// <param name="enemySetting"></param>
     public void GenerateEnemy(LevelSet.EnemySettings enemySetting)
     {
-        Debug.Log("Generate");
         EnemyBase newEnemy = Instantiate(emPrefabDict[enemySetting.enemyType.ToString()], characterRoot).GetComponent<EnemyBase>();
         newEnemy.SetupBorn(enemySetting.bornPoint, enemySetting.directions, enemySetting.isMoveAside, enemySetting.isMoveHating);
     }
@@ -55,7 +54,7 @@ public class EnemyManager : Singleton<EnemyManager>
         GameObject[] enemyGameObjects = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (var enemyGameObject in enemyGameObjects)
         {
-            Debug.Log(enemyGameObject.name);
+            // Debug.Log(enemyGameObject.name);
             currentExistsEnemies.Add(enemyGameObject.GetComponent<EnemyBase>());
         }
     }
@@ -66,8 +65,7 @@ public class EnemyManager : Singleton<EnemyManager>
         _closestEnemyBase = FindCloseEnemy();
         if (_closestEnemyBase == null)
         {
-            //TODO:结算
-            // Debug.Log("游戏结束！！！");
+            //TODO:怪物死亡时要不要触发效果
             // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             return;
         }

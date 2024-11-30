@@ -89,7 +89,7 @@ public class Character : MonoBehaviour
     }
     protected virtual void Die()
     {
-        Debug.Log("死了");
+        Debug.Log(characterType + "死了");
         currentGrid.characterType = CharacterType.None;
         Invoke(nameof(DestroyCharacter), 1f);
     }

@@ -46,7 +46,7 @@ public class AttackDecision : DecisionBase
             {
                 
                 toAttack = hit.collider.GetComponent<Character>();
-                Debug.Log("获取到了目标" + toAttack.name);
+                // Debug.Log("获取到了目标" + toAttack.name);
                 waitingForChoose = false;
                 player.DoDamage(player.strength, toAttack);
                 toAttack = null;

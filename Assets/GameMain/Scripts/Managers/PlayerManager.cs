@@ -7,6 +7,10 @@ public class PlayerManager : Singleton<PlayerManager>
 {
     public Player player;
 
+    private void Start()
+    {
+        UIManager.Instance.OpenPanel(UIName.PlayerStatPanel);
+    }
 
     public int GetDistance(Vector2 pos)
     {

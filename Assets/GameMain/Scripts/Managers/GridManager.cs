@@ -12,6 +12,7 @@ public class GridManager : Singleton<GridManager>
     [SerializeField] private TileBase enemyHighlightTile;
     
     private Tilemap currentMap;
+    private LevelSet levelSet;
     private int currentTileMapId = 0;
     private BoundsInt mapBounds;
     private Dictionary<int, GridInfo> tileDict = new Dictionary<int, GridInfo>();
@@ -22,8 +23,9 @@ public class GridManager : Singleton<GridManager>
         currentMap = wholeTilemaps[currentTileMapId];
         currentMap.gameObject.SetActive(true);
         GetTileMap();
-        InitLevel initLevel = currentMap.gameObject.GetComponentInChildren<InitLevel>();
-        InitTheLevel(initLevel.levelSet);
+        
+        levelSet = currentMap.gameObject.GetComponentInChildren<InitLevel>().levelSet;
+        InitTheLevel();
     }
 
 
@@ -41,14 +43,17 @@ public class GridManager : Singleton<GridManager>
     {
         currentMap.gameObject.SetActive(false);
         tileDict.Clear();
+        //提示格也全都删除
+        forTip.ClearAllTiles();
         //先将所有上一关卡怪物清理
         EnemyManager.Instance.ClearAllEnemies();
         //下一关卡
         currentTileMapId++;
-        Debug.Log(currentTileMapId);
         //如果等于，说明没有下一关，本关结束
         if (currentTileMapId == wholeTilemaps.Length)
         {
+            //TODO:胜利界面
+            UIManager.Instance.OpenPanel(UIName.VictoryPanel);
             Debug.Log("本章完结！");
             return;
         }
@@ -56,15 +61,16 @@ public class GridManager : Singleton<GridManager>
         currentMap.gameObject.SetActive(true);
         GetTileMap();
         
-        InitLevel initLevel = currentMap.gameObject.GetComponentInChildren<InitLevel>();
-        InitTheLevel(initLevel.levelSet);
+        levelSet = currentMap.gameObject.GetComponentInChildren<InitLevel>().levelSet;
+        //TODO:后续做成淡入淡出
+        InitTheLevel();
     }
 
     /// <summary>
     /// 关卡设置
     /// </summary>
     /// <param name="levelSet"></param>
-    private void InitTheLevel(LevelSet levelSet)
+    private void InitTheLevel()
     {
         //设置玩家地点
         PlayerManager.Instance.player.SetupBornPos(levelSet.playerBorn);

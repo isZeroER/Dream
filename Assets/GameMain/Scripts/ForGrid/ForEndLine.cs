@@ -7,12 +7,13 @@ public class ForEndLine : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("终点");
         StartCoroutine(CoNextLevel());
     }
 
     IEnumerator CoNextLevel()
     {
         yield return new WaitForSeconds(1f);
-        EventManager.CallNextTileMap();
+        SceneMgr.Instance.FadeInOutWithCall(EventManager.CallNextTileMap);
     }
 }

@@ -5,20 +5,43 @@ using UnityEngine;
 
 public class UIManager : Singleton<UIManager>
 {
-    [SerializeField] private List<BasePanel> panels;
+    [SerializeField] private List<GameObject> panelPrefabs = new List<GameObject>();
+    private Dictionary<string, GameObject> panelPrefabsDict=new Dictionary<string, GameObject>();
     private Dictionary<string, BasePanel> panelDic = new Dictionary<string, BasePanel>();
-    private Transform UIRoot;
+
+    private Transform uiRoot;
+    private Transform UIRoot
+    {
+        get
+        {
+            if (uiRoot == null)
+                uiRoot = GameObject.Find("UICanvas").transform;
+            return uiRoot;
+        }
+    }
     protected override void Awake()
     {
         base.Awake();
-        foreach (var panel in panels)
-            panelDic.Add(panel.name, panel);
+        DontDestroyOnLoad(gameObject);
+        foreach (var panelPrefab in panelPrefabs)
+            panelPrefabsDict[panelPrefab.name] = panelPrefab;
+        
+        OpenPanel(UIName.BeginPanel);
     }
 
     public void OpenPanel(string name)
     {
-        if(panelDic.TryGetValue(name, out BasePanel panel))
-            panel.Open();
+        if (panelDic.ContainsKey(name) && !panelDic[name].isOpened)
+        {
+            panelDic[name].Open();
+            return;
+        }
+        if(panelPrefabsDict.TryGetValue(name, out GameObject panel))
+        {
+            BasePanel newPanelOpen = Instantiate(panel, UIRoot).GetComponent<BasePanel>();
+            panelDic[name] = newPanelOpen;
+            panelDic[name].Open();
+        }
         else 
             Debug.Log("No Panel!");
     }
@@ -27,12 +50,12 @@ public class UIManager : Singleton<UIManager>
     {
         if(panelDic.ContainsKey(name) && panelDic[name].isOpened)
             panelDic[name].Close();
-            
     }
 }
 
 public class UIName
 {
-    public static string PlayerStat = "PlayerStat";
-    public static string Setting = "Setting";
+    public static string BeginPanel = "BeginPanel";
+    public static string PlayerStatPanel = "PlayerStatPanel";
+    public static string VictoryPanel = "VictoryPanel";
 }
