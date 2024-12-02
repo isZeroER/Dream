@@ -8,6 +8,7 @@ public class TurnManager : Singleton<TurnManager>
     //是否在回合中
     private bool turning;
     private Player player;
+    public int currentTurnNum = 0;
 
     private void Start()
     {
@@ -46,7 +47,8 @@ public class TurnManager : Singleton<TurnManager>
         //提示map里面都清空然后更新状态
         GridManager.Instance.ClearTip();
         GridManager.Instance.ChangeGridInfo(player.transform.position, Character.CharacterType.Player);
-
+        //根据玩家操作次数计算回合数
+        currentTurnNum++;
         EndTurn();
     }
 

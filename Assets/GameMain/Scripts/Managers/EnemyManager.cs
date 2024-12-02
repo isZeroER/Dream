@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class EnemyManager : Singleton<EnemyManager>
 {
     //现有所有敌人
-    private List<EnemyBase> currentExistsEnemies = new List<EnemyBase>();
+    public List<EnemyBase> currentExistsEnemies = new List<EnemyBase>();
     //可以回合外自移动的敌人
     private List<EnemyBase> canPatrolEnemies = new List<EnemyBase>();
     //最近的敌人
@@ -44,8 +44,8 @@ public class EnemyManager : Singleton<EnemyManager>
     /// <param name="enemySetting"></param>
     public void GenerateEnemy(LevelSet.EnemySettings enemySetting)
     {
-        EnemyBase newEnemy = Instantiate(emPrefabDict[enemySetting.enemyType.ToString()], characterRoot).GetComponent<EnemyBase>();
-        newEnemy.SetupBorn(enemySetting.bornPoint, enemySetting.directions, enemySetting.isMoveAside, enemySetting.isMoveHating);
+        EnemyBase newEnemy = Instantiate(emPrefabDict[enemySetting.enemyType.ToString()], CharacterRoot).GetComponent<EnemyBase>();
+        newEnemy.SetupBorn(enemySetting.bornPoint, enemySetting.directions, enemySetting.isMoveAside, enemySetting.isMoveHating, enemySetting.needClear);
     }
 
     public void ClearAllEnemies()

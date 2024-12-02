@@ -50,6 +50,8 @@ public class MoveDecision : DecisionBase
         player.isMoving = true;
         Vector2 targetPos = new Vector2(player.transform.position.x + direction.x,
             player.transform.position.y + direction.y);
+        
+        player.UpdateGridInfoNow(targetPos);
         player.transform.DOMove(targetPos, .5f).OnComplete(() =>
         {
             player.isMoving = false;
@@ -88,8 +90,7 @@ public class MoveDecision : DecisionBase
         CardManager.Instance.isToMove = false;
         isMovingWithMouse = false;
         direction = baseDirection;
-        player.UpdateGridInfo();
-        
+
         //一个回合的闪避解除
         player.isDodgeIgnore = false;
     }

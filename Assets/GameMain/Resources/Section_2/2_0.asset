@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d49980b51e7388640a8e1f1a83ea5a85, type: 3}
   m_Name: 2_0
   m_EditorClassIdentifier: 
-  playerBorn: {x: -1, y: -1}
+  playerBorn: {x: -1, y: -3}
   EnemySettingsList:
   - enemyType: 11
-    bornPoint: {x: -1, y: 2}
+    bornPoint: {x: -1, y: 0}
     directions: []
     isMoveAside: 0
     isMoveHating: 1

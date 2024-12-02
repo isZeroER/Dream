@@ -4809,6 +4809,34 @@ PrefabInstance:
       propertyPath: wholeTilemaps.Array.data[3]
       value: 
       objectReference: {fileID: 1991080708}
+    - target: {fileID: 98098998534002256, guid: aac75c3e51011ac4cb4974fc6e4716dc, type: 3}
+      propertyPath: enemyRouteHighlightTile.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 98098998534002256, guid: aac75c3e51011ac4cb4974fc6e4716dc, type: 3}
+      propertyPath: enemyRouteHighlightTile.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: b3fc58423dc8b6a429eb5f7eb9e4f341, type: 2}
+    - target: {fileID: 98098998534002256, guid: aac75c3e51011ac4cb4974fc6e4716dc, type: 3}
+      propertyPath: enemyRouteHighlightTile.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 94279f7c25d4da44ab1d4ecb7c1aa045, type: 2}
+    - target: {fileID: 98098998534002256, guid: aac75c3e51011ac4cb4974fc6e4716dc, type: 3}
+      propertyPath: enemyRouteHighlightTile.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 5d1af05abecb76445890339a0d8e6042, type: 2}
+    - target: {fileID: 98098998534002256, guid: aac75c3e51011ac4cb4974fc6e4716dc, type: 3}
+      propertyPath: enemyRouteHighlightTile.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 488ece898e660184cbc24620f63b0001, type: 2}
+    - target: {fileID: 98098998534002256, guid: aac75c3e51011ac4cb4974fc6e4716dc, type: 3}
+      propertyPath: enemyRouteHighlightTile.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: 5c9350a062db1f14db8b5554bfa8e021, type: 2}
+    - target: {fileID: 98098998534002256, guid: aac75c3e51011ac4cb4974fc6e4716dc, type: 3}
+      propertyPath: enemyRouteHighlightTile.Array.data[5]
+      value: 
+      objectReference: {fileID: 11400000, guid: dc78356e64919044f9cbcea5acc7f4f6, type: 2}
     - target: {fileID: 1465121415148105296, guid: aac75c3e51011ac4cb4974fc6e4716dc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

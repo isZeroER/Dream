@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public abstract class EnemyBase : Character
 {
@@ -35,6 +36,7 @@ public abstract class EnemyBase : Character
     protected bool isHating;
     private int enemyScore;
 
+    public bool needClear;
     public bool mainTurn;
 
     public EnemyType enemyType;
@@ -42,8 +44,13 @@ public abstract class EnemyBase : Character
     private List<Vector2> pathDir = new List<Vector2>();
     private int currentPath = 0;
 
-    //敌人是否被闪避
-    public bool isIgnore = false;
+    //敌人被忽略的回合数
+    public int isIgnore = 0;
+    //敌人死亡
+    public bool isDead = false;
+
+
+    protected GameObject hateGameObject;
     #endregion
     protected override void Start()
     {
@@ -57,6 +64,7 @@ public abstract class EnemyBase : Character
         GridManager.Instance.ChangeGridInfo(transform.position, characterType);
 
         player = PlayerManager.Instance.player;
+        hateGameObject = transform.GetChild(1).gameObject;
         
         InitEnemy();
     }
@@ -67,13 +75,14 @@ public abstract class EnemyBase : Character
         enemyScore = targetScore;
     }
 
-    public void SetupBorn(Vector2 pos, List<Vector2> pathDir, bool canPatrol, bool canHating)
+    public void SetupBorn(Vector2 pos, List<Vector2> pathDir, bool canPatrol, bool canHating, bool needClear)
     {
         transform.position = pos;
         this.pathDir = pathDir;
         this.canPatrol = canPatrol;
         this.canHate = canHating;
         currentPatrol = pos;
+        this.needClear = needClear;
         UpdateGridInfo();
     }
     
@@ -96,10 +105,12 @@ public abstract class EnemyBase : Character
     
     public override void HandleMethod()
     {
+        if (isDead)
+            return;
         //敌人本回合决策失效
-        if (isIgnore)
+        if (isIgnore > 0)
         {
-            isIgnore = false;
+            isIgnore--;
             return;
         }
         CheckPlayer();
@@ -114,8 +125,6 @@ public abstract class EnemyBase : Character
             }
             else
             {
-                starHatingPath = GridManager.Instance.FindPath(currentGrid.position, player.transform.position);
-                GridManager.Instance.SetEnemyRoute(starHatingPath);
                 //带仇恨锁敌的寻路
                 HatingPatrol();
             }
@@ -143,7 +152,7 @@ public abstract class EnemyBase : Character
     protected virtual void CheckPlayer()
     {
         //失效不决策
-        if (isIgnore)
+        if (isIgnore > 0 || isDead)
             return;
         Vector2 playerPos = player.transform.position;
         Vector2 enemyPos = transform.position;
@@ -179,11 +188,30 @@ public abstract class EnemyBase : Character
     protected abstract void CheckHate();
     //默认都是false
     protected abstract bool CanAttack();
-    protected abstract void Attack();
+
+    protected virtual void Attack()
+    {
+        DoDamage(strength, player);
+        Vector2 dir = player.currentGrid.position - currentGrid.position;
+        if (GridManager.Instance.GetGridByPos(player.currentGrid.position+dir) == null)
+        {
+            dir = Random.Range(0, 2) == 0 ? Vector2.Perpendicular(dir) : -Vector2.Perpendicular(dir);
+        }
+
+        if (GridManager.Instance.GetGridByPos(player.currentGrid.position + dir) == null)
+        {
+            DoDamage(strength, player);
+            return;
+        }
+        transform.DOMove(player.transform.position, .5f).OnComplete(UpdateGridInfo);
+        player.BeMove(player.currentGrid.position + dir);
+    }
     
     protected List<GridInfo> starHatingPath;
     protected virtual void HatingPatrol()
     {
+        starHatingPath = GridManager.Instance.FindPath(currentGrid.position, player.transform.position);
+        GridManager.Instance.SetEnemyRoute(starHatingPath);
         if (starHatingPath is { Count: > 0 } && starHatingPath[0].characterType == CharacterType.None)
         {
             UpdateGridInfoNow(starHatingPath[0].position);

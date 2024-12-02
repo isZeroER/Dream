@@ -13,8 +13,11 @@ public class EM_SparklingSugarCube : EnemyBase
     protected override void CheckHate()
     {
         Debug.Log(canHate);
-        if(canHate)
+        if (canHate)
+        {
             isHating = true;
+            hateGameObject.SetActive(true);
+        }
     }
 
     protected override bool CanAttack()
@@ -27,13 +30,9 @@ public class EM_SparklingSugarCube : EnemyBase
         
     }
 
-    protected override void HatingPatrol()
+    protected override void Die()
     {
-        base.HatingPatrol();
-    }
-
-    protected override void Patrol()
-    {
-        base.Patrol();
+        base.Die();
+        DoDamage(-1, player);
     }
 }

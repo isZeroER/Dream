@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -19,16 +20,21 @@ public class SceneMgr : Singleton<SceneMgr>
         DontDestroyOnLoad(fadeCanvas);
     }
 
-    private void OnEnable()
+    private void Start()
     {
         Invoke(nameof(StartBlack), 1f);
     }
 
     private void StartBlack() => StartCoroutine(FadeInOut(1, 0));
     
+    [Obsolete("Obsolete")]
     public void ChangeToScene(string name)
     {
-        StartCoroutine(CoChangeToScene(name));
+        FadeInOutWithCall(() =>
+        {
+            SceneManager.UnloadScene(SceneManager.GetActiveScene().name);
+            SceneManager.LoadScene(name);
+        });
     }
 
     public void FadeInOutWithCall(UnityAction call)
@@ -36,29 +42,18 @@ public class SceneMgr : Singleton<SceneMgr>
         StartCoroutine(CoFadeInOutWithCall(call));
     }
 
-    IEnumerator CoChangeToScene(string name)
+    IEnumerator CoFadeInOutWithCall(UnityAction call)
     {
         StartCoroutine(FadeInOut(0, 1));
-        yield return new WaitForSeconds(2f);
-        AsyncOperation ao = SceneManager.LoadSceneAsync(name);
-        while (!ao.isDone)
-        {
-            yield return null;
-            if (Enum.TryParse(name, out SceneName scene))
-            {
-                currentScene = scene;
-            } 
-            else
-                Debug.Log("Invalid SceneName");
-        }
-        
-        UIManager.Instance.ClosePanel(UIName.BeginPanel);
+        yield return new WaitForSeconds(1f);
+        call();
+        yield return new WaitForSeconds(1f);
         StartCoroutine(FadeInOut(1, 0));
     }
-
     IEnumerator FadeInOut(float start, float end)
     {
         Image sr = blackFade.GetComponent<Image>();
+        
         sr.color = new Color(1, 1, 1, start);
 
         float forTime = 1f;
@@ -71,16 +66,6 @@ public class SceneMgr : Singleton<SceneMgr>
             yield return null;
         }
     }
-
-    IEnumerator CoFadeInOutWithCall(UnityAction call)
-    {
-        StartCoroutine(FadeInOut(0, 1));
-        yield return new WaitForSeconds(1f);
-        call();
-        yield return new WaitForSeconds(1f);
-        StartCoroutine(FadeInOut(1, 0));
-    }
-
 }
 
 

@@ -114,10 +114,21 @@ public class Player : Character
     public void BeMove(Vector2 targetPos)
     {
         isMoving = true;
-        transform.DOMove(targetPos, .49f).OnComplete(() =>
+        transform.DOMove(targetPos, .2f).OnComplete(() =>
         {
             isMoving = false;
             UpdateGridInfo();
         });
     }
+
+    protected override void Die()
+    {
+        Debug.Log(characterType + "死了");
+        currentGrid.characterType = CharacterType.None;
+        Invoke(nameof(SetNo), 1f);
+        VictoryPanel vp = UIManager.Instance.OpenPanel(UIName.VictoryPanel) as VictoryPanel;
+        vp.SetupText("你输了。。。");
+    }
+
+    private void SetNo() => gameObject.SetActive(false);
 }

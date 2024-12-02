@@ -29,21 +29,25 @@ public class UIManager : Singleton<UIManager>
         OpenPanel(UIName.BeginPanel);
     }
 
-    public void OpenPanel(string name)
+    public BasePanel OpenPanel(string name)
     {
         if (panelDic.ContainsKey(name) && !panelDic[name].isOpened)
         {
             panelDic[name].Open();
-            return;
+            return panelDic[name];
         }
         if(panelPrefabsDict.TryGetValue(name, out GameObject panel))
         {
             BasePanel newPanelOpen = Instantiate(panel, UIRoot).GetComponent<BasePanel>();
             panelDic[name] = newPanelOpen;
             panelDic[name].Open();
+            return newPanelOpen;
         }
-        else 
+        else
+        {
             Debug.Log("No Panel!");
+            return null;
+        }
     }
 
     public void ClosePanel(string name)
@@ -58,4 +62,6 @@ public class UIName
     public static string BeginPanel = "BeginPanel";
     public static string PlayerStatPanel = "PlayerStatPanel";
     public static string VictoryPanel = "VictoryPanel";
+    public static string ScenePanel = "ScenePanel";
+    public static string DialogPanel = "DialogPanel";
 }

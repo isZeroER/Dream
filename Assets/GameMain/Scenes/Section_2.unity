@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 4694397}
   m_Layer: 0
   m_Name: LockStone
-  m_TagString: Untagged
+  m_TagString: LockStone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6052,7 +6052,7 @@ Tilemap:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: 0, y: 0, z: 0}
   m_Size: {x: 0, y: 0, z: 1}
-  m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
+  m_TileAnchor: {x: 0, y: 0, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
     e00: 1
@@ -6082,6 +6082,7 @@ GameObject:
   - component: {fileID: 1128276345}
   - component: {fileID: 1128276347}
   - component: {fileID: 1128276346}
+  - component: {fileID: 1128276348}
   m_Layer: 0
   m_Name: TipMap
   m_TagString: Untagged
@@ -6172,7 +6173,7 @@ Tilemap:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: 0, y: 0, z: 0}
   m_Size: {x: 0, y: 0, z: 1}
-  m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
+  m_TileAnchor: {x: 0, y: 0, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
     e00: 1
@@ -6191,6 +6192,42 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!19719996 &1128276348
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1128276344}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0
+  m_UseDelaunayMesh: 0
 --- !u!1001 &1353704967
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6213,7 +6250,7 @@ PrefabInstance:
       objectReference: {fileID: 976199743}
     - target: {fileID: 98098998534002256, guid: aac75c3e51011ac4cb4974fc6e4716dc, type: 3}
       propertyPath: wholeTilemaps.Array.size
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 98098998534002256, guid: aac75c3e51011ac4cb4974fc6e4716dc, type: 3}
       propertyPath: wholeTilemaps.Array.data[0]
@@ -6239,6 +6276,34 @@ PrefabInstance:
       propertyPath: wholeTilemaps.Array.data[5]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 98098998534002256, guid: aac75c3e51011ac4cb4974fc6e4716dc, type: 3}
+      propertyPath: enemyRouteHighlightTile.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 98098998534002256, guid: aac75c3e51011ac4cb4974fc6e4716dc, type: 3}
+      propertyPath: enemyRouteHighlightTile.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: b0263440bba53134ab5dbf2ba641bcaf, type: 2}
+    - target: {fileID: 98098998534002256, guid: aac75c3e51011ac4cb4974fc6e4716dc, type: 3}
+      propertyPath: enemyRouteHighlightTile.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 477ac8a6a7837c24e8c8ff4d96d128ba, type: 2}
+    - target: {fileID: 98098998534002256, guid: aac75c3e51011ac4cb4974fc6e4716dc, type: 3}
+      propertyPath: enemyRouteHighlightTile.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 723deed3b04313d4f8e0060e63b4523a, type: 2}
+    - target: {fileID: 98098998534002256, guid: aac75c3e51011ac4cb4974fc6e4716dc, type: 3}
+      propertyPath: enemyRouteHighlightTile.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: c8c45cfe650deba438b19b1b6567dcf9, type: 2}
+    - target: {fileID: 98098998534002256, guid: aac75c3e51011ac4cb4974fc6e4716dc, type: 3}
+      propertyPath: enemyRouteHighlightTile.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: ae42a296563d1e84396bdae150d09e83, type: 2}
+    - target: {fileID: 98098998534002256, guid: aac75c3e51011ac4cb4974fc6e4716dc, type: 3}
+      propertyPath: enemyRouteHighlightTile.Array.data[5]
+      value: 
+      objectReference: {fileID: 11400000, guid: a9b09369b2d384b40a89d9963c1d859a, type: 2}
     - target: {fileID: 1465121415148105296, guid: aac75c3e51011ac4cb4974fc6e4716dc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -11727,7 +11792,7 @@ GameObject:
   - component: {fileID: 1762413538}
   m_Layer: 0
   m_Name: LockStone
-  m_TagString: Untagged
+  m_TagString: LockStone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

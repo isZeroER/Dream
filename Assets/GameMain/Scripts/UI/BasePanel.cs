@@ -19,8 +19,8 @@ public class BasePanel : MonoBehaviour, ISaveManager
 
     public virtual void Open()
     {
-        gameObject.SetActive(true);
         isOpened = true;
+        gameObject.SetActive(true);
     }
 
     public virtual void Close()

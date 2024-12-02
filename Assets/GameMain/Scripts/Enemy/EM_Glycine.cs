@@ -22,7 +22,7 @@ public class EM_Glycine : EnemyBase
 
     protected override void Attack()
     {
-        
+        base.Attack();
     }
 
     protected override void Patrol()

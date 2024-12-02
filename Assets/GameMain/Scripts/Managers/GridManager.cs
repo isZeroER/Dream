@@ -14,7 +14,7 @@ public class GridManager : Singleton<GridManager>
     [SerializeField] private TileBase enemyHighlightTile;
     [SerializeField] private TileBase[] enemyRouteHighlightTile;
     
-    private Tilemap currentMap;
+    public Tilemap currentMap;
     private LevelSet levelSet;
     private int currentTileMapId = 0;
     private BoundsInt mapBounds;
@@ -67,8 +67,18 @@ public class GridManager : Singleton<GridManager>
         if (currentTileMapId == wholeTilemaps.Length)
         {
             //TODO:胜利界面
-            UIManager.Instance.OpenPanel(UIName.VictoryPanel);
-            Debug.Log("本章完结！");
+            VictoryPanel vp = UIManager.Instance.OpenPanel(UIName.VictoryPanel) as VictoryPanel;
+            vp.SetupText("胜利！");
+            
+            ScenePanel sp = UIManager.Instance.OpenPanel(UIName.ScenePanel) as ScenePanel;
+            
+            if(SceneMgr.Instance.currentScene == SceneName.Section_0)
+                sp.SetupMessage(s1);
+            if(SceneMgr.Instance.currentScene == SceneName.Section_1)
+                sp.SetupMessage(s2);
+            if(SceneMgr.Instance.currentScene == SceneName.Section_2)
+                sp.SetupMessage(s3);
+            
             return;
         }
         currentMap = wholeTilemaps[currentTileMapId];
@@ -86,12 +96,11 @@ public class GridManager : Singleton<GridManager>
     /// <param name="levelSet"></param>
     private void InitTheLevel()
     {
+        TurnManager.Instance.currentTurnNum = 0;
         //设置玩家地点
         PlayerManager.Instance.player.SetupBornPos(levelSet.playerBorn);
         foreach (var enemySetting in levelSet.EnemySettingsList)
         {
-            if (EnemyManager.Instance == null)
-                Debug.Log("enemyManager");
             EnemyManager.Instance.GenerateEnemy(enemySetting);
         }
     }
@@ -309,4 +318,13 @@ public class GridManager : Singleton<GridManager>
     #endregion
     public void ClearTip() => forTip.ClearAllTiles();
     public void ClearHatingRoute() => enemyRoute.ClearAllTiles();
+    
+    private string s1 =
+        "人的梦境常与现实世界的种种经历及深藏的潜意识紧密相连，" +
+        "它们绝非毫无意义的虚幻想象，" +
+        "而是由个体的思想波澜、丰富情感、深刻记忆以及那未被完全探索的潜意识力量共同交织而成的一个多维而复杂的空间。" +
+        "这个空间既蕴藏着无限的潜能与机遇，也暗含着未知的危险与挑战。";
+
+    private string s2 = "睡梦是窥探内心的锁孔，是心灵深处未被完全解读的密码，映射着个体生命的丰富层次与无限可能。";
+    private string s3 = "这个梦境世界迎来了它的终结——————一切都要结束了吗————————————————————————————恭喜你睡醒回到现实世界，该上班了";
 }

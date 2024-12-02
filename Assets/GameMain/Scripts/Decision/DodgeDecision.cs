@@ -18,10 +18,20 @@ public class DodgeDecision : DecisionBase
         player.isMoving = true;
         //玩家与怪物位置调换
         Vector2 playerToPos = player.toDodge.currentGrid.position;
-        //更新位置信息
-        player.toDodge.isIgnore = true;
+
+        player.toDodge.isIgnore = 2;
+        //更新敌人位置信息
+        GridManager.Instance.ChangeGridInfo(player.transform.position, Character.CharacterType.Enemy);
+        player.toDodge.currentGrid = GridManager.Instance.GetGridByPos(player.transform.position);
+        
+        //更新玩家位置
+        GridManager.Instance.ChangeGridInfo(playerToPos, Character.CharacterType.Player);
+        player.currentGrid = GridManager.Instance.GetGridByPos(playerToPos);
+        
+        //清除箭头
+        GridManager.Instance.ClearHatingRoute();
+        
         player.toDodge.transform.DOMove(player.transform.position, .5f);
-        player.toDodge.UpdateGridInfoNow(player.transform.position);
         player.transform.DOMove(playerToPos, .49f).OnComplete(() =>
         {
             player.isMoving = false;
@@ -43,7 +53,6 @@ public class DodgeDecision : DecisionBase
     
     public override void ClearStat()
     {
-        player.UpdateGridInfo();
         //回合结束，使得不能闪避
         player.canDodge = false;
     }

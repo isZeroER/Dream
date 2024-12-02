@@ -22,7 +22,7 @@ public class EM_Acetylcholine : EnemyBase
 
     protected override void Attack()
     {
-        
+        base.Attack();
     }
 
     protected override void Patrol()

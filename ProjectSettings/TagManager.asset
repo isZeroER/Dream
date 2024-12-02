@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - TipGrid
+  - LockStone
   layers:
   - Default
   - TransparentFX

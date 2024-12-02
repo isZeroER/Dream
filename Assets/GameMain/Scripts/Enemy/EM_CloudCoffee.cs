@@ -16,12 +16,14 @@ public class EM_CloudCoffee : EnemyBase
         if (health < 6 && canHate)
         {
             isHating = true;
+            hateGameObject.SetActive(true);
         }
     }
 
     protected override bool CanAttack()
     {
         starHatingPath = GridManager.Instance.FindPath(currentGrid.position, player.transform.position);
+        Debug.Log(currentGrid.position + " " + player.transform.position+" "+transform.position + " " +starHatingPath[0].position);
         // Debug.Log("判断中。。。"+(starHatingPath[0] == player.currentGrid) +" "+ isHating);
         //最近一格是玩家并且处于仇恨状态
         if (starHatingPath.Count > 0 && starHatingPath[0] == player.currentGrid && isHating)
@@ -31,20 +33,7 @@ public class EM_CloudCoffee : EnemyBase
 
     protected override void Attack()
     {
-        DoDamage(strength, player);
-        Vector2 dir = player.currentGrid.position - currentGrid.position;
-        if (GridManager.Instance.GetGridByPos(player.currentGrid.position+dir) == null)
-        {
-            dir = Random.Range(0, 2) == 0 ? Vector2.Perpendicular(dir) : -Vector2.Perpendicular(dir);
-        }
-
-        if (GridManager.Instance.GetGridByPos(player.currentGrid.position+dir) == null)
-        {
-            DoDamage(strength, player);
-            return;
-        }
-        transform.DOMove(player.transform.position, .5f).OnComplete(UpdateGridInfo);
-        player.BeMove(player.currentGrid.position + dir);
+        base.Attack();
     }
 
     protected override void HatingPatrol()
@@ -55,6 +44,11 @@ public class EM_CloudCoffee : EnemyBase
     protected override void Patrol()
     {
         base.Patrol();
+    }
+
+    protected override void Die()
+    {
+        base.Die();
     }
 
     // protected override bool WillAttack()

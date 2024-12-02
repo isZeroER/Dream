@@ -61,6 +61,7 @@ public class PlayerStatPanel : BasePanel
     
     public void ToTheMainMenu()
     {
+        Debug.Log("TOMAINMENU");
         SceneMgr.Instance.ChangeToScene(SceneName.StartScene.ToString());
         stopMenu.SetActive(false);
         Close();
@@ -70,6 +71,5 @@ public class PlayerStatPanel : BasePanel
     {
         SceneMgr.Instance.ChangeToScene(SceneMgr.Instance.currentScene.ToString());
         stopMenu.SetActive(false);
-        Close();
     }
 }
