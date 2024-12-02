@@ -11,13 +11,13 @@ public class VictoryPanel : BasePanel
     public void RePlay()
     {
         SceneMgr.Instance.ChangeToScene(SceneMgr.Instance.currentScene.ToString());
-        Close();
+        Invoke(nameof(Close), 1f);
     }
 
     public void ToTheMainMenu()
     {
         SceneMgr.Instance.ChangeToScene(SceneName.StartScene.ToString());
-        Close();
+        Invoke(nameof(Close), 1f);
     }
 
     public void NextSection()
@@ -25,11 +25,11 @@ public class VictoryPanel : BasePanel
         int a = (int) SceneMgr.Instance.currentScene;
         if (a == 4)
         {
-            Debug.Log("没有下一章了！");
+            SetupText("没有下一章啦！");
             return;
         }
         SceneMgr.Instance.ChangeToScene(((SceneName)a).ToString());
-        Close();
+        Invoke(nameof(Close), 1f);
     }
 
     public void SetupText(string word)

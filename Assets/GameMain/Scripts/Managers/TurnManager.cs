@@ -63,6 +63,8 @@ public class TurnManager : Singleton<TurnManager>
 
     private IEnumerator EnemyAction()
     {
+        //清理上回合路线
+        GridManager.Instance.ClearHatingRoute();
         yield return new WaitForSeconds(.51f);
         EnemyManager.Instance.HandleTurn();
         yield return new WaitForSeconds(.51f);

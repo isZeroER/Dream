@@ -61,17 +61,17 @@ public class Character : MonoBehaviour
         health -= damage;
         if(health <= 0)
             Die();
-        StartCoroutine(CoTakeDamage());
+        StartCoroutine(CoTakeDamage(damage));
     }
 
-    IEnumerator CoTakeDamage()
+    IEnumerator CoTakeDamage(int damage)
     {
         float blinkFor = 1f;
         float timer = 0;
         while (timer<blinkFor)
         {
             timer += .4f;
-            sr.color = Color.red;
+            sr.color = damage > 0 ? Color.red : Color.green;
             yield return new WaitForSeconds(.2f);
             sr.color = Color.white;
             yield return new WaitForSeconds(.2f);

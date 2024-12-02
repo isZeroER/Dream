@@ -49,7 +49,6 @@ public abstract class EnemyBase : Character
     //敌人死亡
     public bool isDead = false;
 
-
     protected GameObject hateGameObject;
     #endregion
     protected override void Start()
@@ -233,6 +232,13 @@ public abstract class EnemyBase : Character
     {
         EnemyManager.Instance.RemoveEnemy(this);
         EventManager.CallSendScore(enemyScore);
+        isDead = true;
+        if (player.toDodge == this)
+        {
+            player.toDodge = null;
+            player.canDodge = false;
+            GridManager.Instance.ClearHatingRoute();
+        }
         base.Die();
     }
     #endregion

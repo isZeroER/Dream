@@ -16,13 +16,13 @@ public class BeginPanel : BasePanel
         if(sceneName == 2)
             AudioManager.Instance.PlayBGM(1);
         SceneMgr.Instance.ChangeToScene("Section_" + sceneName);
-        Close();
+        Invoke(nameof(Close), 1f);
     }
 
     public void NewGame()
     {
         SceneMgr.Instance.ChangeToScene(SceneName.Section_0.ToString());
-        Close();
+        Invoke(nameof(Close), 1f);
     }
 
     public void ChooseSection()

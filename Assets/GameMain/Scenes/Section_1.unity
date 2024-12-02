@@ -6160,6 +6160,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7326044384545419840, guid: c9c5cd9c2b67e424cb32d0b7e31567bf, type: 3}
   m_PrefabInstance: {fileID: 1541654380}
   m_PrefabAsset: {fileID: 0}
+--- !u!1839735485 &1541654382 stripped
+Tilemap:
+  m_CorrespondingSourceObject: {fileID: 5187671294421075960, guid: c9c5cd9c2b67e424cb32d0b7e31567bf, type: 3}
+  m_PrefabInstance: {fileID: 1541654380}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1596614168
 GameObject:
   m_ObjectHideFlags: 0
@@ -8379,7 +8384,7 @@ PrefabInstance:
     - target: {fileID: 98098998534002256, guid: aac75c3e51011ac4cb4974fc6e4716dc, type: 3}
       propertyPath: wholeTilemaps.Array.data[0]
       value: 
-      objectReference: {fileID: 887552001}
+      objectReference: {fileID: 1541654382}
     - target: {fileID: 98098998534002256, guid: aac75c3e51011ac4cb4974fc6e4716dc, type: 3}
       propertyPath: wholeTilemaps.Array.data[1]
       value: 

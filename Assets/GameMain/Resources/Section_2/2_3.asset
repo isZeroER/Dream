@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d49980b51e7388640a8e1f1a83ea5a85, type: 3}
   m_Name: 2_3
   m_EditorClassIdentifier: 
-  playerBorn: {x: 0, y: 0}
+  playerBorn: {x: -4, y: 1}
   EnemySettingsList:
   - enemyType: 13
     bornPoint: {x: 2, y: -1}

@@ -127,7 +127,7 @@ public class Player : Character
         currentGrid.characterType = CharacterType.None;
         Invoke(nameof(SetNo), 1f);
         VictoryPanel vp = UIManager.Instance.OpenPanel(UIName.VictoryPanel) as VictoryPanel;
-        vp.SetupText("你输了。。。");
+        vp.SetupText("你输了！");
     }
 
     private void SetNo() => gameObject.SetActive(false);

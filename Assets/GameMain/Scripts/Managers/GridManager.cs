@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -182,6 +183,8 @@ public class GridManager : Singleton<GridManager>
         grids.Add(left);
         grids.Add(right);
 
+        grids = grids.OrderBy(x => UnityEngine.Random.value).ToList();
+        
         return grids.ToArray();
     }
 
@@ -255,8 +258,6 @@ public class GridManager : Singleton<GridManager>
     /// <param name="routePath"></param>
     public void SetEnemyRoute(List<GridInfo> routePath)
     {
-        //清理上一回合路线
-        ClearHatingRoute();
         for (int i = 0; i < routePath.Count - 1; i++)  // 遍历到倒数第二个格子
         {
             Vector2 currentPos = routePath[i].position;
@@ -274,7 +275,6 @@ public class GridManager : Singleton<GridManager>
     {
         // 计算箭头的朝向
         Vector2 direction = nextPos - currentPos;  // 计算当前格子到下一个格子的方向
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;  // 转换为角度
         
         Vector3Int target = new Vector3Int((int)currentPos.x, (int)currentPos.y, 0);
         

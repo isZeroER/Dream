@@ -55,7 +55,7 @@ public class AStar
                 AStarNode neighborNode = new AStarNode(neighbor, currentNode, newGCost, newHCost);
 
                 // 如果邻居不在开放列表中，或者找到更短路径，加入开放列表
-                if (!openList.Any(node => node.GridInfo == neighbor) || newGCost < neighborNode.GCost)
+                if (openList.All(node => node.GridInfo != neighbor) || newGCost < neighborNode.GCost)
                 {
                     openList.Add(neighborNode);
                 }

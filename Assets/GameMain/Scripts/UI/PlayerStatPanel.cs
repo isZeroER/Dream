@@ -8,6 +8,7 @@ public class PlayerStatPanel : BasePanel
 {
     [SerializeField] private Transform hearts;
     [SerializeField] private GameObject stopMenu;
+    [SerializeField] private GameObject heartPrefab;
     private Player player;
     private Player Player
     {
@@ -33,13 +34,16 @@ public class PlayerStatPanel : BasePanel
 
     private void UpdatePlayerHealth()
     {
-        for (int i = 0; i < hearts.childCount; i++)
+        //先删除所有爱心
+        // 遍历所有子物体并销毁它们
+        foreach (Transform child in hearts)
         {
-            hearts.transform.GetChild(i).gameObject.SetActive(false);
+            Destroy(child.gameObject);
         }
+
         for (int i = 0; i < Player.health; i++)
         {
-            hearts.transform.GetChild(i).gameObject.SetActive(true);
+            Instantiate(heartPrefab, hearts);
         }
     }
 
@@ -50,21 +54,20 @@ public class PlayerStatPanel : BasePanel
     public void ShowStopMenu()
     {
         stopMenu.SetActive(true);
-        Time.timeScale = 0;
+        // Time.timeScale = 0;
     }
 
     public void BackToGame()
     {
         stopMenu.SetActive(false);
-        Time.timeScale = 1;
+        // Time.timeScale = 1;
     }
     
     public void ToTheMainMenu()
     {
-        Debug.Log("TOMAINMENU");
         SceneMgr.Instance.ChangeToScene(SceneName.StartScene.ToString());
         stopMenu.SetActive(false);
-        Close();
+        Invoke(nameof(Close), 1f);
     }
     
     public void RePlay()

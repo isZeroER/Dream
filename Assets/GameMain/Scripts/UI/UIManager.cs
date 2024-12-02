@@ -15,7 +15,7 @@ public class UIManager : Singleton<UIManager>
         get
         {
             if (uiRoot == null)
-                uiRoot = GameObject.Find("UICanvas").transform;
+                uiRoot = GameObject.Find("UICanvas").transform.GetChild(0);
             return uiRoot;
         }
     }

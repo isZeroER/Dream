@@ -10,14 +10,13 @@ using UnityEngine.UI;
 public class SceneMgr : Singleton<SceneMgr>
 {
     [SerializeField] private GameObject blackFade;
-    [SerializeField] private GameObject fadeCanvas;
+
     public SceneName currentScene;
     
     protected override void Awake()
     {
         base.Awake();
         DontDestroyOnLoad(gameObject);
-        DontDestroyOnLoad(fadeCanvas);
     }
 
     private void Start()
@@ -27,27 +26,43 @@ public class SceneMgr : Singleton<SceneMgr>
 
     private void StartBlack() => StartCoroutine(FadeInOut(1, 0));
     
-    [Obsolete("Obsolete")]
     public void ChangeToScene(string name)
     {
         FadeInOutWithCall(() =>
         {
-            SceneManager.UnloadScene(SceneManager.GetActiveScene().name);
-            SceneManager.LoadScene(name);
+            LoadSceneWithName(name);
         });
     }
 
-    public void FadeInOutWithCall(UnityAction call)
+    private void LoadSceneWithName(string name)
     {
-        StartCoroutine(CoFadeInOutWithCall(call));
+        // 尝试解析字符串为 SceneName 枚举类型
+        if (Enum.TryParse(name, true, out SceneName theCurrentScene))
+        {
+            // 成功解析后，你可以使用 currentScene 进行场景切换
+            // Debug.Log("Parsed scene: " + theCurrentScene);
+            SceneManager.LoadScene(name);
+            currentScene = theCurrentScene;
+        }
+        else
+        {
+            Debug.LogError("Invalid scene name: " + name);
+        }
     }
 
-    IEnumerator CoFadeInOutWithCall(UnityAction call)
+    #region ForSmooth
+
+    public void FadeInOutWithCall(UnityAction call, float time = 1.5f)
+    {
+        StartCoroutine(CoFadeInOutWithCall(call, time));
+    }
+
+    IEnumerator CoFadeInOutWithCall(UnityAction call, float time)
     {
         StartCoroutine(FadeInOut(0, 1));
-        yield return new WaitForSeconds(1f);
-        call();
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(time);
+        call.Invoke();
+        yield return new WaitForSeconds(time);
         StartCoroutine(FadeInOut(1, 0));
     }
     IEnumerator FadeInOut(float start, float end)
@@ -56,16 +71,18 @@ public class SceneMgr : Singleton<SceneMgr>
         
         sr.color = new Color(1, 1, 1, start);
 
-        float forTime = 1f;
+        float forTime = 0.9f;
         float elapsedTime = 0f;
         while (elapsedTime < forTime)
         {
             float alpha = Mathf.Lerp(start, end, elapsedTime / forTime);
             sr.color = new Color(1, 1, 1, alpha);
-            elapsedTime += Time.deltaTime;
+            elapsedTime += 0.01f;
             yield return null;
         }
     }
+
+    #endregion
 }
 
 

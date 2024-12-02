@@ -46,7 +46,8 @@ public class EM_Serotonin : EnemyBase
         Vector3Int randomPosition = new Vector3Int(x, y, 0);
 
         // 确保格子上有 Tile（如果需要）
-        while (!GridManager.Instance.currentMap.HasTile(randomPosition))
+        while (!GridManager.Instance.currentMap.HasTile(randomPosition) &&
+               GridManager.Instance.GetGridByPos(new Vector2(randomPosition.x, randomPosition.y)).characterType != CharacterType.Enemy)
         {
             x = Random.Range(bounds.xMin, bounds.xMax);
             y = Random.Range(bounds.yMin, bounds.yMax);
