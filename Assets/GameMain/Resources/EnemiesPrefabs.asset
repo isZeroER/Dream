@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: EnemiesPrefabs
   m_EditorClassIdentifier: Assembly-CSharp::EnemiesPrefabs
   enemies:
-  - {fileID: 3621327786834576320, guid: 2fa9110a9f2fcc848bcf629a80a4c7db, type: 3}
-  - {fileID: 2577508007400344424, guid: bbf7407643c56c74e90ccdfc82c71e51, type: 3}
-  - {fileID: 5095108192172035966, guid: 0ce6532d73ca4b541946cc22eb7ba08d, type: 3}
-  - {fileID: 4494784439089148826, guid: 31a028df2d806064aa71b96171a2859b, type: 3}
-  - {fileID: 780551452008757006, guid: 1245a802b7793674eb911b8a2680e5d2, type: 3}
-  - {fileID: 780551452008757006, guid: b87d987a1c7c9ce458c0346da7ba10ce, type: 3}
-  - {fileID: 3342401702006368946, guid: 9831c519b3f345646af38d2a4ad3cbed, type: 3}
-  - {fileID: 1974076752252585327, guid: 4cfba70ad7538b744b89406f29ad17d3, type: 3}
-  - {fileID: 9111945111674561493, guid: 7d7219a74ddf2814da3f96d63c1afbb5, type: 3}
-  - {fileID: 679361592660981873, guid: 70aab023e9fb43344b12aed698e1afce, type: 3}
+  - {fileID: 6548129535644941494, guid: b0c14080d7d7d544f912b50bde4c5c46, type: 3}
+  - {fileID: 1821085990663969185, guid: fb78060e2276d8948ac83d4d234d977e, type: 3}
+  - {fileID: 3041790268503408216, guid: c247e382194b17049a8fc3acbfe52c0f, type: 3}
+  - {fileID: 4013530722322102783, guid: 4f413dbcb76a29842817df0e3c8546c4, type: 3}
+  - {fileID: 3565079662492500680, guid: b7fd5046c70e7374793e42c7ac3f7d8b, type: 3}
+  - {fileID: 2864459368845696046, guid: 0022f37285a3bac4995916728b771302, type: 3}
+  - {fileID: 495042211423073061, guid: 044836bc21318664e9d28bb22b437e94, type: 3}
+  - {fileID: 8949027900090474671, guid: c58150cd4f9216c4d9bed54690a72b27, type: 3}
+  - {fileID: 2770786868393542331, guid: ad0e655c0e6780f4299d3affbb574a1e, type: 3}
+  - {fileID: 2607903008455436060, guid: 9dc076d9b949cc745b67075a21be30e6, type: 3}

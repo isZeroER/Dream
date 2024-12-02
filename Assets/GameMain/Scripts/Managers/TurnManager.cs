@@ -8,11 +8,12 @@ public class TurnManager : Singleton<TurnManager>
     //是否在回合中
     private bool turning;
     private Player player;
-    public int currentTurnNum = 0;
+    public int currentTurnNum { get; private set; } = 1;
 
     private void Start()
     {
         player = PlayerManager.Instance.player;
+        InitTurnNum();
     }
 
     private void Update()
@@ -47,8 +48,6 @@ public class TurnManager : Singleton<TurnManager>
         //提示map里面都清空然后更新状态
         GridManager.Instance.ClearTip();
         GridManager.Instance.ChangeGridInfo(player.transform.position, Character.CharacterType.Player);
-        //根据玩家操作次数计算回合数
-        currentTurnNum++;
         EndTurn();
     }
 
@@ -69,6 +68,10 @@ public class TurnManager : Singleton<TurnManager>
         EnemyManager.Instance.HandleTurn();
         yield return new WaitForSeconds(.51f);
         player.hasInput = false;
+        
+        //根据敌人操作次数计算回合数
+        currentTurnNum++;
+        EventManager.CallUpdateTurnNum(currentTurnNum);
         EndTurn();
     }
 
@@ -78,4 +81,6 @@ public class TurnManager : Singleton<TurnManager>
         isPlayerTurn = !isPlayerTurn;
         turning = false;
     }
+
+    public void InitTurnNum() => currentTurnNum = 1;
 }

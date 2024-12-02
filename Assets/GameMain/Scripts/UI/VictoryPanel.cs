@@ -23,11 +23,13 @@ public class VictoryPanel : BasePanel
     public void NextSection()
     {
         int a = (int) SceneMgr.Instance.currentScene;
-        if (a == 4)
+        a++;
+        if (a == 3)
         {
             SetupText("没有下一章啦！");
             return;
         }
+        
         SceneMgr.Instance.ChangeToScene(((SceneName)a).ToString());
         Invoke(nameof(Close), 1f);
     }

@@ -1,14 +1,25 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class PlayerStatPanel : BasePanel
 {
+    [Header("ForPlayer")]
     [SerializeField] private Transform hearts;
-    [SerializeField] private GameObject stopMenu;
     [SerializeField] private GameObject heartPrefab;
+    
+    [Header("ForEnemy")]
+    [SerializeField] private Transform enemyHearts;
+    [SerializeField] private GameObject enemyHeartPrefab;
+    [SerializeField] private Image enemyHead;
+    
+    [Header("Information")]
+    [SerializeField] private TextMeshProUGUI turnText;
+    [SerializeField] private GameObject stopMenu;
     private Player player;
     private Player Player
     {
@@ -23,13 +34,16 @@ public class PlayerStatPanel : BasePanel
     private void OnEnable()
     {
         EventManager.UpdateHealth += UpdatePlayerHealth;
-        
+        EventManager.UpdateEnemyHealth += UpdateEnemyHealth;
+        EventManager.UpdateTurnNum += UpdateTurnNum;
         UpdatePlayerHealth();
     }
 
     private void OnDisable()
     {
         EventManager.UpdateHealth -= UpdatePlayerHealth;
+        EventManager.UpdateEnemyHealth -= UpdateEnemyHealth;
+        EventManager.UpdateTurnNum -= UpdateTurnNum;
     }
 
     private void UpdatePlayerHealth()
@@ -45,6 +59,35 @@ public class PlayerStatPanel : BasePanel
         {
             Instantiate(heartPrefab, hearts);
         }
+    }
+
+    private void UpdateEnemyHealth(EnemyBase enemy)
+    {
+        if (!enemy)
+        {
+            enemyHead.color = new Color(1, 1, 1, 0);
+            foreach (Transform child in enemyHearts)
+            {
+                Destroy(child.gameObject);
+            }
+            return;
+        }
+        enemyHead.sprite = enemy.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite;
+        enemyHead.color=Color.white;
+        foreach (Transform child in enemyHearts)
+        {
+            Destroy(child.gameObject);
+        }
+
+        for (int i = 0; i < enemy.health; i++)
+        {
+            Instantiate(enemyHeartPrefab, enemyHearts);
+        }
+    }
+
+    private void UpdateTurnNum(int num)
+    {
+        turnText.text = $"第 {num} 回合";
     }
 
     public void VolumeControl()

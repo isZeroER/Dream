@@ -62,6 +62,8 @@ public class GridManager : Singleton<GridManager>
         forTip.ClearAllTiles();
         //先将所有上一关卡怪物清理
         EnemyManager.Instance.ClearAllEnemies();
+        //清理上一关怪物头像和血条
+        EventManager.CallUpdateEnemyHealth(null);
         //下一关卡
         currentTileMapId++;
         //如果等于，说明没有下一关，本关结束
@@ -97,7 +99,7 @@ public class GridManager : Singleton<GridManager>
     /// <param name="levelSet"></param>
     private void InitTheLevel()
     {
-        TurnManager.Instance.currentTurnNum = 0;
+        TurnManager.Instance.InitTurnNum();
         //设置玩家地点
         PlayerManager.Instance.player.SetupBornPos(levelSet.playerBorn);
         foreach (var enemySetting in levelSet.EnemySettingsList)

@@ -48,7 +48,7 @@ public class Character : MonoBehaviour
     /// </summary>
     /// <param name="damage"></param>
     /// <param name="victim， 收到伤害的对象"></param>
-    public void DoDamage(int damage, Character victim)
+    public virtual void DoDamage(int damage, Character victim)
     {
         victim.TakeDamage(damage);
     }

@@ -73,6 +73,12 @@ public class Player : Character
         CheckInput();
     }
 
+    public override void DoDamage(int damage, Character victim)
+    {
+        base.DoDamage(damage, victim);
+        EventManager.CallUpdateEnemyHealth(victim as EnemyBase);
+    }
+
     protected override void TakeDamage(int damage)
     {
         base.TakeDamage(damage);

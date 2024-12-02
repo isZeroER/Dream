@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public abstract class EnemyBase : Character
@@ -51,6 +52,7 @@ public abstract class EnemyBase : Character
 
     protected GameObject hateGameObject;
     #endregion
+    
     protected override void Start()
     {
         base.Start();
@@ -247,9 +249,9 @@ public abstract class EnemyBase : Character
     {
         
     }
-    //
-    // protected virtual bool WillAttack()
-    // {
-    //     return false;
-    // }
+
+    private void OnMouseDown()
+    {
+        EventManager.CallUpdateEnemyHealth(this);
+    }
 }

@@ -12,6 +12,11 @@ public class EventManager : Singleton<EventManager>
     {
         UpdateHealth?.Invoke();
     }
+    public static event Action<EnemyBase> UpdateEnemyHealth;
+    public static void CallUpdateEnemyHealth(EnemyBase enemy)
+    {
+        UpdateEnemyHealth?.Invoke(enemy);
+    }
     
     //玩家得分
     public static event Action<int> SendScore;
@@ -27,6 +32,12 @@ public class EventManager : Singleton<EventManager>
     public static void CallNextTileMap()
     {
         NextTileMap?.Invoke();
+    }
+    public static event Action<int> UpdateTurnNum;
+
+    public static void CallUpdateTurnNum(int num)
+    {
+        UpdateTurnNum?.Invoke(num);
     }
     
 }

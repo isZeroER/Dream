@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2989239258516711310}
   - component: {fileID: 2396440675629699602}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8969908309135328683}
   - component: {fileID: 3038405242731177510}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemyBase
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -173,7 +173,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1712277137981878836}
   - component: {fileID: 7828024684734007112}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Animator
   m_TagString: Untagged
   m_Icon: {fileID: 0}

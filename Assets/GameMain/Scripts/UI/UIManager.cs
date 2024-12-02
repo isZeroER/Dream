@@ -31,11 +31,17 @@ public class UIManager : Singleton<UIManager>
 
     public BasePanel OpenPanel(string name)
     {
-        if (panelDic.ContainsKey(name) && !panelDic[name].isOpened)
+        if (panelDic.ContainsKey(name))
         {
-            panelDic[name].Open();
-            return panelDic[name];
+            if (!panelDic[name].isOpened)
+            {
+                panelDic[name].Open();
+                return panelDic[name];
+            }
+            else
+                return panelDic[name];
         }
+        
         if(panelPrefabsDict.TryGetValue(name, out GameObject panel))
         {
             BasePanel newPanelOpen = Instantiate(panel, UIRoot).GetComponent<BasePanel>();
