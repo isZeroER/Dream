@@ -39,6 +39,10 @@ public class UIManager : Singleton<UIManager>
             if (!panelDic[name].isOpened)
             {
                 panelDic[name].Open();
+                if (name == UIName.VolumePanel)
+                {
+                    panelDic[name].transform.SetAsLastSibling();
+                }
                 return panelDic[name];
             }
             else
@@ -74,5 +78,6 @@ public class UIName
     public static string PlayerStatPanel = "PlayerStatPanel";
     public static string VictoryPanel = "VictoryPanel";
     public static string ScenePanel = "ScenePanel";
+    public static string VolumePanel = "VolumePanel";
     public static string DialogPanel = "DialogPanel";
 }

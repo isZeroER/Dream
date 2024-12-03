@@ -64,6 +64,8 @@ public class GridManager : Singleton<GridManager>
         EnemyManager.Instance.ClearAllEnemies();
         //清理上一关怪物头像和血条
         EventManager.CallUpdateEnemyHealth(null);
+        //清理上一关的回合数
+        EventManager.CallUpdateTurnNum(1);
         //下一关卡
         currentTileMapId++;
         //如果等于，说明没有下一关，本关结束
@@ -322,11 +324,12 @@ public class GridManager : Singleton<GridManager>
     public void ClearHatingRoute() => enemyRoute.ClearAllTiles();
     
     private string s1 =
-        "人的梦境常与现实世界的种种经历及深藏的潜意识紧密相连，" +
-        "它们绝非毫无意义的虚幻想象，" +
-        "而是由个体的思想波澜、丰富情感、深刻记忆以及那未被完全探索的潜意识力量共同交织而成的一个多维而复杂的空间。" +
-        "这个空间既蕴藏着无限的潜能与机遇，也暗含着未知的危险与挑战。";
+        "人的梦境常与现实世界的种种经历及深藏的潜意识紧密相连，\n" +
+        "它们绝非毫无意义的虚幻想象，\n" +
+        "而是由个体的思想波澜、丰富情感、深刻记忆以及那未被完全探索的潜意识力量共同交织而成的一个多维而复杂的空间。\n" +
+        "这个空间既蕴藏着无限的潜能与机遇，\n"+
+        "也暗含着未知的危险与挑战。";
 
-    private string s2 = "睡梦是窥探内心的锁孔，是心灵深处未被完全解读的密码，映射着个体生命的丰富层次与无限可能。";
-    private string s3 = "这个梦境世界迎来了它的终结——————一切都要结束了吗————————————————————————————恭喜你睡醒回到现实世界，该上班了";
+    private string s2 = "睡梦是窥探内心的锁孔，\n"+"是心灵深处未被完全解读的密码，\n"+"映射着个体生命的丰富层次与无限可能。";
+    private string s3 = "这个梦境世界迎来了它的终结\n"+"    ——————一切都要结束了吗?\n"+"———————————————————————恭喜你睡醒回到现实世界，该上班了!";
 }

@@ -92,7 +92,7 @@ public class PlayerStatPanel : BasePanel
 
     public void VolumeControl()
     {
-        
+        UIManager.Instance.OpenPanel(UIName.VolumePanel);
     }
     public void ShowStopMenu()
     {
@@ -119,7 +119,6 @@ public class PlayerStatPanel : BasePanel
         //将敌人的状态栏更新
         EventManager.CallUpdateEnemyHealth(null);
         EventManager.CallUpdateTurnNum(1);
-        Player.SetPlayerRePlay();
         stopMenu.SetActive(false);
     }
 }

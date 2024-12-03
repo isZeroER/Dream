@@ -33,4 +33,11 @@ public class AudioManager : Singleton<AudioManager>
         ForBGM.clip = bgmLists[id];
         ForBGM.Play();
     }
+
+    public void SetBGMVolume(float volume)
+    {
+        ForBGM.volume = volume;
+    }
+
+    public float GetBGMVolume() => ForBGM.volume;
 }

@@ -10,6 +10,8 @@ public class PlayerManager : Singleton<PlayerManager>
     private void Start()
     {
         UIManager.Instance.OpenPanel(UIName.PlayerStatPanel);
+        player.SetPlayerRePlay();
+        EventManager.CallUpdateHealth();
     }
 
     public int GetDistance(Vector2 pos)

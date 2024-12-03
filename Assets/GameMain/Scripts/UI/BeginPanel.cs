@@ -46,6 +46,6 @@ public class BeginPanel : BasePanel
     
     public void Setting()
     {
-        
+        UIManager.Instance.OpenPanel(UIName.VolumePanel);
     }
 }
