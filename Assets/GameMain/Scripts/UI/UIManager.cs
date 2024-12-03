@@ -25,7 +25,10 @@ public class UIManager : Singleton<UIManager>
         DontDestroyOnLoad(gameObject);
         foreach (var panelPrefab in panelPrefabs)
             panelPrefabsDict[panelPrefab.name] = panelPrefab;
-        
+    }
+
+    private void Start()
+    {
         OpenPanel(UIName.BeginPanel);
     }
 
@@ -39,7 +42,9 @@ public class UIManager : Singleton<UIManager>
                 return panelDic[name];
             }
             else
+            {
                 return panelDic[name];
+            }
         }
         
         if(panelPrefabsDict.TryGetValue(name, out GameObject panel))

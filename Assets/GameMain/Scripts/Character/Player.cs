@@ -137,4 +137,10 @@ public class Player : Character
     }
 
     private void SetNo() => gameObject.SetActive(false);
+
+    public void SetPlayerRePlay()
+    {
+        health = 3;
+        EventManager.CallUpdateHealth();
+    }
 }

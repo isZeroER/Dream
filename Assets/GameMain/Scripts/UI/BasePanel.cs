@@ -6,16 +6,7 @@ using UnityEngine;
 public class BasePanel : MonoBehaviour, ISaveManager
 {
     public bool isOpened { get; private set; }
-
-    private void OnEnable()
-    {
-        
-    }
-
-    private void OnDisable()
-    {
-        
-    }
+    
 
     public virtual void Open()
     {

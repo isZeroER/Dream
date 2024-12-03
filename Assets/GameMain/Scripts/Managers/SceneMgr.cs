@@ -21,7 +21,9 @@ public class SceneMgr : Singleton<SceneMgr>
 
     private void Start()
     {
-        Invoke(nameof(StartBlack), 1f);
+        Invoke(nameof(StartBlack), 1f); 
+        if(Input.GetKeyDown(KeyCode.Escape) && Input.GetKey(KeyCode.KeypadEnter))
+            Application.Quit();
     }
 
     private void StartBlack() => StartCoroutine(FadeInOut(1, 0));
@@ -30,18 +32,22 @@ public class SceneMgr : Singleton<SceneMgr>
     {
         FadeInOutWithCall(() =>
         {
-            LoadSceneWithName(name);
+            StartCoroutine(LoadSceneWithName(name));
+            if (name == SceneName.StartScene.ToString())
+                UIManager.Instance.OpenPanel(UIName.BeginPanel);
         });
     }
 
-    private void LoadSceneWithName(string name)
+    IEnumerator LoadSceneWithName(string name)
     {
-        // 尝试解析字符串为 SceneName 枚举类型
         if (Enum.TryParse(name, true, out SceneName theCurrentScene))
         {
-            // 成功解析后，你可以使用 currentScene 进行场景切换
-            // Debug.Log("Parsed scene: " + theCurrentScene);
-            SceneManager.LoadScene(name);
+            AsyncOperation ao = SceneManager.LoadSceneAsync(name);
+            while (!ao.isDone)
+            {
+                yield return null;
+            }
+            
             currentScene = theCurrentScene;
         }
         else
@@ -52,7 +58,7 @@ public class SceneMgr : Singleton<SceneMgr>
 
     #region ForSmooth
 
-    public void FadeInOutWithCall(UnityAction call, float time = 1.5f)
+    public void FadeInOutWithCall(UnityAction call, float time = 1.1f)
     {
         StartCoroutine(CoFadeInOutWithCall(call, time));
     }
@@ -77,7 +83,7 @@ public class SceneMgr : Singleton<SceneMgr>
         {
             float alpha = Mathf.Lerp(start, end, elapsedTime / forTime);
             sr.color = new Color(1, 1, 1, alpha);
-            elapsedTime += 0.01f;
+            elapsedTime += Time.deltaTime;
             yield return null;
         }
     }

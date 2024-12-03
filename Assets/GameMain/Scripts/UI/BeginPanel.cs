@@ -16,6 +16,8 @@ public class BeginPanel : BasePanel
         if(sceneName == 2)
             AudioManager.Instance.PlayBGM(1);
         SceneMgr.Instance.ChangeToScene("Section_" + sceneName);
+        EventManager.CallUpdateTurnNum(1);
+        BackToMenu();
         Invoke(nameof(Close), 1f);
     }
 

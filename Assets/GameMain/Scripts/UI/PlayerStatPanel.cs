@@ -116,6 +116,10 @@ public class PlayerStatPanel : BasePanel
     public void RePlay()
     {
         SceneMgr.Instance.ChangeToScene(SceneMgr.Instance.currentScene.ToString());
+        //将敌人的状态栏更新
+        EventManager.CallUpdateEnemyHealth(null);
+        EventManager.CallUpdateTurnNum(1);
+        Player.SetPlayerRePlay();
         stopMenu.SetActive(false);
     }
 }

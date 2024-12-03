@@ -31,6 +31,7 @@ public class VictoryPanel : BasePanel
         }
         
         SceneMgr.Instance.ChangeToScene(((SceneName)a).ToString());
+        EventManager.CallUpdateEnemyHealth(null);
         Invoke(nameof(Close), 1f);
     }
 
