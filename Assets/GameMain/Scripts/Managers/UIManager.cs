@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : Singleton<UIManager>
 {
@@ -70,6 +71,26 @@ public class UIManager : Singleton<UIManager>
         if(panelDic.ContainsKey(name) && panelDic[name].isOpened)
             panelDic[name].Close();
     }
+
+#if UNITY_EDITOR
+    static Vector3[] corners = new Vector3[4];
+    private void OnDrawGizmos()
+    {
+        foreach (MaskableGraphic g in GetComponentsInChildren<MaskableGraphic>())
+        {
+            if (g.raycastTarget)
+            {
+                RectTransform rectTransform = g.transform as RectTransform;
+                rectTransform.GetWorldCorners(corners);
+                Gizmos.color = Color.blue;
+                for (int i = 0; i < 4; i++)
+                {
+                    Gizmos.DrawLine(corners[i], corners[(i + 1) % 4]);
+                }
+            }
+        }
+    }
+#endif
 }
 
 public class UIName
