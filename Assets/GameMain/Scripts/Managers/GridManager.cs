@@ -144,7 +144,7 @@ public class GridManager : Singleton<GridManager>
 
     private int GetTileIndex(int x, int y, BoundsInt bounds)
     {
-        if (x < bounds.xMin || x > bounds.xMax || y < bounds.yMin || y > bounds.yMax) 
+        if (x < bounds.xMin || x > bounds.xMax-1 || y < bounds.yMin || y > bounds.yMax-1) 
             return -1;
         //行数 * 每行个数，加上这行前面的个数
         return (y - bounds.yMin) * bounds.size.x + (x - bounds.xMin);

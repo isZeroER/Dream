@@ -18,12 +18,13 @@ public class EM_Serotonin : EnemyBase
 
     protected override void CheckHate()
     {
-        Debug.Log(canHate);
-        if (canHate)
-        {
-            isHating = true;
-            hateGameObject.SetActive(true);
-        }
+        isHating = true;
+        hateGameObject.SetActive(true);
+    }
+
+    protected override void HatingPatrol()
+    {
+        
     }
 
     protected override bool CanAttack() 
@@ -44,14 +45,16 @@ public class EM_Serotonin : EnemyBase
 
         // 生成格子坐标
         Vector3Int randomPosition = new Vector3Int(x, y, 0);
-
+        GridInfo randomGrid = GridManager.Instance.GetGridByPos(new Vector2(randomPosition.x, randomPosition.y));
+        
         // 确保格子上有 Tile（如果需要）
-        while (!GridManager.Instance.currentMap.HasTile(randomPosition) &&
-               GridManager.Instance.GetGridByPos(new Vector2(randomPosition.x, randomPosition.y)).characterType != CharacterType.Enemy)
+        while (!GridManager.Instance.currentMap.HasTile(randomPosition) || randomGrid == null 
+                || randomGrid.characterType == CharacterType.Enemy)
         {
             x = Random.Range(bounds.xMin, bounds.xMax);
             y = Random.Range(bounds.yMin, bounds.yMax);
             randomPosition = new Vector3Int(x, y, 0);
+            randomGrid = GridManager.Instance.GetGridByPos(new Vector2(randomPosition.x, randomPosition.y));
         }
 
         Vector2 targetPos = new Vector2(randomPosition.x, randomPosition.y);
@@ -100,6 +103,8 @@ public class EM_Serotonin : EnemyBase
 
             // 等待当前 DOMove 动画完成再继续执行下一步
             yield return new WaitForSeconds(speed);
+            //判断当前是否为玩家格子
+            //TODO:最后攻击到玩家的位置
         }
     }
     
