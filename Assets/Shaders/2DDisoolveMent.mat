@@ -80,9 +80,9 @@ Material:
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
-    - _DissolveAScale: 25
-    - _DissolveAmount: 0.513
-    - _DissolveWidth: 2.56
+    - _DissolveAScale: 5
+    - _DissolveAmount: 0.219
+    - _DissolveWidth: 2.5
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -98,8 +98,9 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _DissolveColor: {r: 1, g: 1, b: 1, a: 0}
+    - _DissolveColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor: {r: 0.990566, g: 0.8771736, b: 0.16353682, a: 0.94509804}
   m_BuildTextureStacks: []
 --- !u!114 &3977897239536290556
 MonoBehaviour:
